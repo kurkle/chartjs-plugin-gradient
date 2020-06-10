@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Easy gradient colors for Chart.js</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
+		<script src="utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css"></link>
+	</head>
+	<body>
+		<div id="canvas-holder">
+			<canvas id="chart-area" width="800" height="400"></canvas>
+		</div>
+
+
+	<script>
+/* eslint-disable no-undef */
+const rand = () => Math.random() * 100;
+const gen = () => [...Array(10)].map((v, i) => ({x: i, y: rand()}));
+Utils.load(() => {
+	const ctx = document.getElementById('chart-area').getContext('2d');
+	window.chart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			datasets: [{
+				label: 'gradient fill',
+				data: gen(),
+				gradient: {
+					borderColor: {
+						axis: 'y',
+						colors: {
+							0: 'green',
+							50: 'orange',
+							100: 'red'
+						}
+					}
+				}
+			}]
+		},
+		options: {
+			elements: {
+				rectangle: {
+					borderWidth: 2
+				}
+			},
+			scales: {
+				x: {
+					type: 'linear'
+				}
+			}
+		},
+		plugins: [
+			window['chartjs-plugin-gradient']
+		]
+	});
+});
+	</script>
+	</body>
+</html>
