@@ -7,30 +7,43 @@ function createGradient(ctx, axis, area) {
 }
 
 function addColors(gradient, scale, colors) {
-  Object.keys(colors).forEach(value => {
+  for (const value of Object.keys(colors)) {
     const pixel = scale.getPixelForValue(value);
     const stop = scale.getDecimalForPixel(pixel);
-    gradient.addColorStop(Math.max(0, Math.min(1, stop)), ColorLib(colors[value]).rgbString());
-  });
+    if (isFinite(pixel) && isFinite(stop)) {
+      gradient.addColorStop(
+        Math.max(0, Math.min(1, stop)),
+        ColorLib(colors[value]).rgbString()
+      );
+    }
+  }
 }
+
+const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
 
 export default {
   id: 'gradient',
   beforeDatasetsUpdate(chart) {
     const area = chart.chartArea;
+    if (!areaIsValid(area)) {
+      return;
+    }
     const ctx = chart.ctx;
-    chart.data.datasets.forEach((dataset, i) => {
+    const datasets = chart.data.datasets;
+    for (let i = 0; i < datasets.length; i++) {
+      const dataset = datasets[i];
       const gradient = dataset.gradient;
-      if (gradient && area) {
-        Object.keys(gradient).forEach(prop => {
-          const {axis, colors} = gradient[prop];
-          const meta = chart.getDatasetMeta(i);
+      if (gradient) {
+        const meta = chart.getDatasetMeta(i);
+
+        for (const [key, options] of Object.entries(gradient)) {
+          const {axis, colors} = options;
           const scale = meta[axis + 'Scale'];
           const value = createGradient(ctx, axis, area);
           addColors(value, scale, colors);
-          dataset[prop] = meta.dataset.options[prop] = value;
-        });
+          dataset[key] = meta.dataset.options[key] = value;
+        }
       }
-    });
+    }
   }
 };
