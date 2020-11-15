@@ -52,10 +52,10 @@ Signle chart
 
 ```js
 const chart = new Chart(ctx, {
-	// ...
-	plugins: {
-		gradient
-	}
+  // ...
+  plugins: {
+    gradient
+  }
 });
 ```
 
@@ -65,30 +65,30 @@ The gradient colors are configured in the `gradient` key of dataset
 
 ```js
 const chart = new Chart(ctx, {
-	data: {
-		datasets: [{
-			// data
-			gradient: {
-				backgroundColor: {
-					axis: 'y',
-					colors: {
-						0: 'red',
-						50: 'yellow',
-						100: 'green'
-					}
-				},
-				borderColor: {
-					axis: 'x',
-					colors: {
-						0: 'black',
-						1: 'white',
-						2: 'black',
-						3: 'white'
-					}
-				}
-			}
-		}]
-	}
+  data: {
+    datasets: [{
+      // data
+      gradient: {
+        backgroundColor: {
+          axis: 'y',
+          colors: {
+            0: 'red',
+            50: 'yellow',
+            100: 'green'
+          }
+        },
+        borderColor: {
+          axis: 'x',
+          colors: {
+            0: 'black',
+            1: 'white',
+            2: 'black',
+            3: 'white'
+          }
+        }
+      }
+    }]
+  }
 });
 ```
 
