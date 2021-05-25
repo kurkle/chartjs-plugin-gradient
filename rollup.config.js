@@ -1,5 +1,3 @@
-/* eslint-env es6 */
-
 import resolve from '@rollup/plugin-node-resolve';
 import {terser} from 'rollup-plugin-terser';
 import {name, version, homepage, main} from './package.json';

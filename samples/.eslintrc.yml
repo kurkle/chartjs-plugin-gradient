@@ -1,0 +1,7 @@
+globals:
+  Chart: true
+  Utils: true
+
+rules:
+  indent: ["error", "tab", {flatTernaryExpressions: true}]
+  no-new: "off"

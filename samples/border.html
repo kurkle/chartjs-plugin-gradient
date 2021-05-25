@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Easy gradient colors for Chart.js</title>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.0/dist/chart.min.js" integrity="sha256-KP9rTEikFk097YZVFmsYwZdAg4cdGdea8O/V7YZJUxw=" crossorigin="anonymous"></script>
 		<script src="utils.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
@@ -13,7 +13,6 @@
 
 
 	<script>
-/* eslint-disable no-undef */
 const rand = () => Math.random() * 100;
 const gen = () => [...Array(10)].map((v, i) => ({x: i, y: rand()}));
 Utils.load(() => {
