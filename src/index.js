@@ -19,29 +19,58 @@ function addColors(gradient, scale, colors) {
   }
 }
 
-const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
+function getScale(meta, axis) {
+  const key = axis + 'Scale'; 
+
+  if(meta.controller) {
+      return meta.controller['_' + key];
+  } else {
+      return meta[key];
+  }
+}
+
+function setValue(meta, dataset, key, value) {
+  dataset[key] = value;
+
+  if(meta.dataset.options) {
+    meta.dataset.options[key] = value;
+  } else {
+    meta.dataset[key] = value;
+  }
+}
+
+
+function areaIsValid(area){
+  return area && area.right > area.left && area.bottom > area.top;
+}
 
 export default {
   id: 'gradient',
   beforeDatasetsUpdate(chart) {
     const area = chart.chartArea;
+
     if (!areaIsValid(area)) {
       return;
     }
+
     const ctx = chart.ctx;
     const datasets = chart.data.datasets;
     for (let i = 0; i < datasets.length; i++) {
+
       const dataset = datasets[i];
       const gradient = dataset.gradient;
+
       if (gradient) {
         const meta = chart.getDatasetMeta(i);
 
         for (const [key, options] of Object.entries(gradient)) {
           const {axis, colors} = options;
-          const scale = meta[axis + 'Scale'];
+
+          const scale = getScale(meta, axis);
           const value = createGradient(ctx, axis, area);
+
           addColors(value, scale, colors);
-          dataset[key] = meta.dataset.options[key] = value;
+          setValue(meta, dataset, key, value);
         }
       }
     }
