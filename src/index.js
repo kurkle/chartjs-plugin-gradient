@@ -19,6 +19,20 @@ function addColors(gradient, scale, colors) {
   }
 }
 
+function setValue(meta, dataset, key, value) {
+  dataset[key] = value;
+
+  if(meta.dataset.options) {
+    meta.dataset.options[key] = value;
+  } else {
+    meta.dataset[key] = value;
+  }
+}
+
+const getScale = Chart.version 
+  ? (meta, axis) => meta[axis + 'Scale'] 
+  : (meta, axis) => meta.controller['_' + axis + 'Scale'];
+
 const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
 
 export default {
@@ -38,10 +52,10 @@ export default {
 
         for (const [key, options] of Object.entries(gradient)) {
           const {axis, colors} = options;
-          const scale = meta[axis + 'Scale'];
+          const scale = getScale(meta, axis);
           const value = createGradient(ctx, axis, area);
           addColors(value, scale, colors);
-          dataset[key] = meta.dataset.options[key] = value;
+          setValue(meta, dataset, key, value);
         }
       }
     }
