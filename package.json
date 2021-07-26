@@ -1,12 +1,13 @@
 {
   "name": "chartjs-plugin-gradient",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Easy gradient colors for Chart.js",
   "main": "dist/chartjs-plugin-gradient.js",
   "module": "dist/chartjs-plugin-gradient.ems.js",
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint samples/**/*.html samples/**/*.js src/**/*.js **/*.md"
+    "lint": "eslint samples/**/*.html samples/**/*.js src/**/*.js **/*.md",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@kurkle/color": "^0.1.9",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "chart.js": "^3.5.0",
     "eslint": "^7.13.0",
     "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^4.1.0",
@@ -39,5 +41,8 @@
     "eslint-plugin-markdown": "^2.1.0",
     "rollup": "^2.33.2",
     "rollup-plugin-terser": "^7.0.2"
+  },
+  "peerDependencies": {
+    "chart.js": ">=2.6.0"
   }
 }
