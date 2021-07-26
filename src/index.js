@@ -19,16 +19,6 @@ function addColors(gradient, scale, colors) {
   }
 }
 
-function getScale(chart, meta, axis) {
-  const key = axis + 'Scale'; 
-
-  if(chart.version) {
-      return meta[key];
-  } else {
-      return meta.controller['_' + key];
-  }
-}
-
 function setValue(meta, dataset, key, value) {
   dataset[key] = value;
 
@@ -38,6 +28,10 @@ function setValue(meta, dataset, key, value) {
     meta.dataset[key] = value;
   }
 }
+
+const getScale = Chart.version 
+  ? (meta, axis) => meta[axis + 'Scale'] 
+  : (meta, axis) => meta.controller['_' + axis + 'Scale'];
 
 const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
 
@@ -58,7 +52,7 @@ export default {
 
         for (const [key, options] of Object.entries(gradient)) {
           const {axis, colors} = options;
-          const scale = getScale(chart, meta, axis);
+          const scale = getScale(meta, axis);
           const value = createGradient(ctx, axis, area);
           addColors(value, scale, colors);
           setValue(meta, dataset, key, value);
