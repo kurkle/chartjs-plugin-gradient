@@ -1,3 +1,4 @@
+import {Chart} from 'chart.js';
 import ColorLib from '@kurkle/color';
 
 function createGradient(ctx, axis, area) {
@@ -22,15 +23,15 @@ function addColors(gradient, scale, colors) {
 function setValue(meta, dataset, key, value) {
   dataset[key] = value;
 
-  if(meta.dataset.options) {
+  if (meta.dataset.options) {
     meta.dataset.options[key] = value;
   } else {
     meta.dataset[key] = value;
   }
 }
 
-const getScale = Chart.version 
-  ? (meta, axis) => meta[axis + 'Scale'] 
+const getScale = Chart.version
+  ? (meta, axis) => meta[axis + 'Scale']
   : (meta, axis) => meta.controller['_' + axis + 'Scale'];
 
 const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
