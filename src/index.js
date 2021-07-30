@@ -22,6 +22,7 @@ function addColors(gradient, scale, colors) {
 
 function setValue(meta, dataset, key, value) {
   dataset[key] = value;
+  if(!meta.dataset) { return; }
 
   if (meta.dataset.options) {
     meta.dataset.options[key] = value;
