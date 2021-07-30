@@ -38,6 +38,6 @@ version-resolver:
   default: patch
 template: |
   # Essential Links
-  * [npm](https://www.npmjs.com/package/chartjs-plugin-gradient
+  * [npm](https://www.npmjs.com/package/chartjs-plugin-gradient)
   $CHANGES
   Thanks to $CONTRIBUTORS
