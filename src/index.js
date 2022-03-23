@@ -59,9 +59,11 @@ export default {
         for (const [key, options] of Object.entries(gradient)) {
           const {axis, colors} = options;
           const scale = getScale(meta, axis);
-          const value = createGradient(ctx, axis, scale);
-          addColors(value, scale, colors);
-          setValue(meta, dataset, key, value);
+          if (scale) {
+            const value = createGradient(ctx, axis, scale);
+            addColors(value, scale, colors);
+            setValue(meta, dataset, key, value);
+          }
         }
       }
     }
