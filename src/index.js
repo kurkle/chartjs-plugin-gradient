@@ -13,9 +13,8 @@ function createGradient(ctx, axis, scale) {
 
 function getPixelStop(scale, value) {
   if (scale.type === 'radialLinear') {
-    const pixel = scale.getDistanceFromCenterForValue(value);
-    const stop = pixel / scale.drawingArea;
-    return {pixel, stop};
+    const distance = scale.getDistanceFromCenterForValue(value);
+    return {pixel: distance, stop: distance / scale.drawingArea};
   }
   const reverse = scale.options.reverse;
   const pixel = scale.getPixelForValue(value);
