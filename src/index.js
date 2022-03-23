@@ -8,12 +8,13 @@ function createGradient(ctx, axis, area) {
 }
 
 function addColors(gradient, scale, colors) {
+  const reverse = scale.options.reverse;
   for (const value of Object.keys(colors)) {
     const pixel = scale.getPixelForValue(value);
     const stop = scale.getDecimalForPixel(pixel);
     if (isFinite(pixel) && isFinite(stop)) {
       gradient.addColorStop(
-        Math.max(0, Math.min(1, stop)),
+        Math.max(0, Math.min(1, reverse ? 1 - stop : stop)),
         ColorLib(colors[value]).rgbString()
       );
     }
@@ -51,17 +52,22 @@ export default {
     for (let i = 0; i < datasets.length; i++) {
       const dataset = datasets[i];
       const gradient = dataset.gradient;
-      if (gradient) {
-        const meta = chart.getDatasetMeta(i);
+      if (!gradient) {
+        continue;
+      }
+      const meta = chart.getDatasetMeta(i);
 
-        for (const [key, options] of Object.entries(gradient)) {
-          const {axis, colors} = options;
-          const scale = getScale(meta, axis);
-          if (scale) {
-            const value = createGradient(ctx, axis, scale);
-            addColors(value, scale, colors);
-            setValue(meta, dataset, key, value);
-          }
+      for (const [key, options] of Object.entries(gradient)) {
+        const {axis, colors} = options;
+        const scale = getScale(meta, axis);
+        if (!scale) {
+          console.warn(`Scale not found for '${axis}'-axis in datasets[${i}] of chart id ${chart.id}, skipping.`);
+          continue;
+        }
+        if (scale) {
+          const value = createGradient(ctx, axis, scale);
+          addColors(value, scale, colors);
+          setValue(meta, dataset, key, value);
         }
       }
     }
