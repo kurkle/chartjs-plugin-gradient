@@ -1,24 +1,26 @@
 import {Chart} from 'chart.js';
 import ColorLib from '@kurkle/color';
 
-function createGradient(ctx, axis, area) {
-  return axis === 'y'
-    ? ctx.createLinearGradient(0, area.bottom, 0, area.top)
-    : axis === 'r'
-      ? ctx.createRadialGradient(area.xCenter, area.yCenter, 0, area.xCenter, area.yCenter, area.drawingArea)
-      : ctx.createLinearGradient(area.left, 0, area.right, 0);
+function createGradient(ctx, axis, scale) {
+  if (axis === 'r') {
+    return ctx.createRadialGradient(scale.xCenter, scale.yCenter, 0, scale.xCenter, scale.yCenter, scale.drawingArea);
+  }
+  if (axis === 'y') {
+    return ctx.createLinearGradient(0, scale.bottom, 0, scale.top);
+  }
+  return ctx.createLinearGradient(scale.left, 0, scale.right, 0);
 }
 
 function getPixelStop(scale, value) {
   if (scale.type === 'radialLinear') {
-     const pixel = scale.getDistanceFromCenterForValue(value);
-     const stop = pixel / scale.drawingArea;
-     return {pixel, stop};		
+    const pixel = scale.getDistanceFromCenterForValue(value);
+    const stop = pixel / scale.drawingArea;
+    return {pixel, stop};
   }
   const reverse = scale.options.reverse;
   const pixel = scale.getPixelForValue(value);
   const stop = scale.getDecimalForPixel(pixel);
-  return {pixel, stop: reverse ? 1 - stop : stop};		
+  return {pixel, stop: reverse ? 1 - stop : stop};
 }
 
 function addColors(gradient, scale, colors) {
