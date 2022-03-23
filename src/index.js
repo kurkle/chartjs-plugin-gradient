@@ -1,7 +1,9 @@
 import {Chart} from 'chart.js';
 import ColorLib from '@kurkle/color';
 
-function createGradient(ctx, axis, area) {
+function createGradient(ctx, axis, scale) {
+  const reverse = scale.options.reverse;
+  const area = reverse ? {top: scale.bottom, bottom: scale.top, left: scale.right, right: scale.left} : scale;
   return axis === 'y'
     ? ctx.createLinearGradient(0, area.bottom, 0, area.top)
     : ctx.createLinearGradient(area.left, 0, area.right, 0);
@@ -57,7 +59,7 @@ export default {
         for (const [key, options] of Object.entries(gradient)) {
           const {axis, colors} = options;
           const scale = getScale(meta, axis);
-          const value = createGradient(ctx, axis, area);
+          const value = createGradient(ctx, axis, scale);
           addColors(value, scale, colors);
           setValue(meta, dataset, key, value);
         }
