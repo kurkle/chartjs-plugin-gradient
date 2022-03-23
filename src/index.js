@@ -4,17 +4,29 @@ import ColorLib from '@kurkle/color';
 function createGradient(ctx, axis, area) {
   return axis === 'y'
     ? ctx.createLinearGradient(0, area.bottom, 0, area.top)
-    : ctx.createLinearGradient(area.left, 0, area.right, 0);
+    : axis === 'r'
+      ? ctx.createRadialGradient(area.xCenter, area.yCenter, 0, area.xCenter, area.yCenter, area.drawingArea)
+      : ctx.createLinearGradient(area.left, 0, area.right, 0);
+}
+
+function getPixelStop(scale, value) {
+  if (scale.type === 'radialLinear') {
+     const pixel = scale.getDistanceFromCenterForValue(value);
+     const stop = pixel / scale.drawingArea;
+     return {pixel, stop};		
+  }
+  const reverse = scale.options.reverse;
+  const pixel = scale.getPixelForValue(value);
+  const stop = scale.getDecimalForPixel(pixel);
+  return {pixel, stop: reverse ? 1 - stop : stop};		
 }
 
 function addColors(gradient, scale, colors) {
-  const reverse = scale.options.reverse;
   for (const value of Object.keys(colors)) {
-    const pixel = scale.getPixelForValue(value);
-    const stop = scale.getDecimalForPixel(pixel);
+    const {pixel, stop} = getPixelStop(scale, value);
     if (isFinite(pixel) && isFinite(stop)) {
       gradient.addColorStop(
-        Math.max(0, Math.min(1, reverse ? 1 - stop : stop)),
+        Math.max(0, Math.min(1, stop)),
         ColorLib(colors[value]).rgbString()
       );
     }
