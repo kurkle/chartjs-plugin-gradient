@@ -1,20 +1,33 @@
 import {Chart} from 'chart.js';
 import ColorLib from '@kurkle/color';
 
-function createGradient(ctx, axis, area) {
-  return axis === 'y'
-    ? ctx.createLinearGradient(0, area.bottom, 0, area.top)
-    : ctx.createLinearGradient(area.left, 0, area.right, 0);
+function createGradient(ctx, axis, scale) {
+  if (axis === 'r') {
+    return ctx.createRadialGradient(scale.xCenter, scale.yCenter, 0, scale.xCenter, scale.yCenter, scale.drawingArea);
+  }
+  if (axis === 'y') {
+    return ctx.createLinearGradient(0, scale.bottom, 0, scale.top);
+  }
+  return ctx.createLinearGradient(scale.left, 0, scale.right, 0);
+}
+
+function getPixelStop(scale, value) {
+  if (scale.type === 'radialLinear') {
+    const distance = scale.getDistanceFromCenterForValue(value);
+    return {pixel: distance, stop: distance / scale.drawingArea};
+  }
+  const reverse = scale.options.reverse;
+  const pixel = scale.getPixelForValue(value);
+  const stop = scale.getDecimalForPixel(pixel);
+  return {pixel, stop: reverse ? 1 - stop : stop};
 }
 
 function addColors(gradient, scale, colors) {
-  const reverse = scale.options.reverse;
   for (const value of Object.keys(colors)) {
-    const pixel = scale.getPixelForValue(value);
-    const stop = scale.getDecimalForPixel(pixel);
+    const {pixel, stop} = getPixelStop(scale, value);
     if (isFinite(pixel) && isFinite(stop)) {
       gradient.addColorStop(
-        Math.max(0, Math.min(1, reverse ? 1 - stop : stop)),
+        Math.max(0, Math.min(1, stop)),
         ColorLib(colors[value]).rgbString()
       );
     }
