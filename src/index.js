@@ -35,10 +35,12 @@ function addColors(gradient, scale, colors) {
   for (const value of Object.keys(colors)) {
     const {pixel, stop} = getPixelStop(scale, value);
     if (isFinite(pixel) && isFinite(stop)) {
-      gradient.addColorStop(
-        Math.max(0, Math.min(1, stop)),
-        color(colors[value]).rgbString()
-      );
+      const colorStop = color(colors[value]);
+      if (colorStop && colorStop.valid) {
+        gradient.addColorStop(
+          Math.max(0, Math.min(1, stop)), colorStop.rgbString()
+        );
+      }
     }
   }
 }
