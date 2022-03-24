@@ -1,4 +1,5 @@
 import {Chart} from 'chart.js';
+import {isNumber} from 'chart.js/helpers';
 import ColorLib from '@kurkle/color';
 
 function createGradient(ctx, axis, scale) {
@@ -11,13 +12,18 @@ function createGradient(ctx, axis, scale) {
   return ctx.createLinearGradient(scale.left, 0, scale.right, 0);
 }
 
+function scaleValue(scale, value) {
+  const normValue = isNumber(value) ? parseFloat(value) : scale.parse(value);
+  return scale.getPixelForValue(normValue);
+}
+
 function getPixelStop(scale, value) {
   if (scale.type === 'radialLinear') {
     const distance = scale.getDistanceFromCenterForValue(value);
     return {pixel: distance, stop: distance / scale.drawingArea};
   }
   const reverse = scale.options.reverse;
-  const pixel = scale.getPixelForValue(value);
+  const pixel = scaleValue(scale, value);
   const stop = scale.getDecimalForPixel(pixel);
   return {pixel, stop: reverse ? 1 - stop : stop};
 }
