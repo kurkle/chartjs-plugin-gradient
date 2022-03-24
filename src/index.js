@@ -13,7 +13,7 @@ function createGradient(ctx, axis, scale) {
 }
 
 function scaleValue(scale, value) {
-  const normValue = isNumber(value) ? parseFloat(value) : scale.parse(value);
+  const normValue = isNumber(value) ? parseFloat(value) : Chart.version ? scale.parse(value) : value;
   return scale.getPixelForValue(normValue);
 }
 
