@@ -1,4 +1,5 @@
 import {Chart} from 'chart.js';
+import {isNumber} from 'chart.js/helpers';
 import ColorLib from '@kurkle/color';
 
 function createGradient(ctx, axis, area) {
@@ -7,10 +8,15 @@ function createGradient(ctx, axis, area) {
     : ctx.createLinearGradient(area.left, 0, area.right, 0);
 }
 
+function scaleValue(scale, value) {
+  const normValue = isNumber(value) ? parseFloat(value) : scale.parse(value);
+  return scale.getPixelForValue(normValue);
+}
+
 function addColors(gradient, scale, colors) {
   const reverse = scale.options.reverse;
   for (const value of Object.keys(colors)) {
-    const pixel = scale.getPixelForValue(value);
+    const pixel = scaleValue(scale, value);
     const stop = scale.getDecimalForPixel(pixel);
     if (isFinite(pixel) && isFinite(stop)) {
       gradient.addColorStop(
