@@ -12,13 +12,12 @@ function createGradient(ctx, axis, scale) {
   return ctx.createLinearGradient(scale.left, 0, scale.right, 0);
 }
 
+const parse = Chart.version
+  ? (scale, value) => scale.parse(value)
+  : (scale, value) => value;
+
 function scaleValue(scale, value) {
-  let normValue;
-  if (isNumber(value)) {
-    normValue = parseFloat(value);
-  } else {
-    normValue = (Chart.version) ? scale.parse(value) : value;
-  }
+  const normValue = isNumber(value) ? parseFloat(value) : parse(scale, value);
   return scale.getPixelForValue(normValue);
 }
 
