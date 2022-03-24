@@ -2,14 +2,22 @@ import resolve from '@rollup/plugin-node-resolve';
 import {terser} from 'rollup-plugin-terser';
 import {name, version, homepage, main} from './package.json';
 
-const input = 'src/index.js';
-
 const banner = `/*!
  * ${name} v${version}
  * ${homepage}
  * (c) ${(new Date(process.env.SOURCE_DATE_EPOCH ? (process.env.SOURCE_DATE_EPOCH * 1000) : new Date().getTime())).getFullYear()} Jukka Kurkela
  * Released under the MIT License
  */`;
+
+const input = 'src/index.js';
+const external = [
+  'chart.js',
+  'chart.js/helpers'
+];
+const globals = {
+  'chart.js': 'Chart',
+  'chart.js/helpers': 'Chart.helpers'
+};
 
 export default [
   {
@@ -22,8 +30,10 @@ export default [
       file: main,
       banner,
       format: 'umd',
-      indent: false
-    }
+      indent: false,
+      globals
+    },
+    external
   },
   {
     input,
@@ -40,8 +50,10 @@ export default [
       file: main.replace('.js', '.min.js'),
       format: 'umd',
       sourcemap: true,
-      indent: false
-    }
+      indent: false,
+      globals
+    },
+    external
   },
   {
     input,
@@ -54,6 +66,7 @@ export default [
       banner,
       format: 'esm',
       indent: false
-    }
+    },
+    external
   },
 ];
