@@ -1,8 +1,10 @@
 # chartjs-plugin-gradient
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-plugin-gradient&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-plugin-gradient)
+
 *Easy gradients for [Chart.js](https://www.chartjs.org)*
 
-This plugin requires Chart.js 3.0.0 or later. Could work with v2, but it is not supported.
+This plugin requires Chart.js 3.0.0 or later. It should also work with v2, but there are no regressing tests to guarantee this.
 
 **NOTE** the plugin does not automatically register.
 
