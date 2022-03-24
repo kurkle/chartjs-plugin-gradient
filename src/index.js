@@ -1,6 +1,5 @@
 import {Chart} from 'chart.js';
-import {isNumber} from 'chart.js/helpers';
-import ColorLib from '@kurkle/color';
+import {isNumber, color} from 'chart.js/helpers';
 
 function createGradient(ctx, axis, scale) {
   if (axis === 'r') {
@@ -38,7 +37,7 @@ function addColors(gradient, scale, colors) {
     if (isFinite(pixel) && isFinite(stop)) {
       gradient.addColorStop(
         Math.max(0, Math.min(1, stop)),
-        ColorLib(colors[value]).rgbString()
+        color(colors[value]).rgbString()
       );
     }
   }
