@@ -1,6 +1,7 @@
-import resolve from '@rollup/plugin-node-resolve';
-import {terser} from 'rollup-plugin-terser';
-import {name, version, homepage, main} from './package.json';
+const json = require('@rollup/plugin-json');
+const resolve = require('@rollup/plugin-node-resolve').default;
+const terser = require('rollup-plugin-terser').terser;
+const {name, version, homepage, main, module: _module} = require('./package.json');
 
 const banner = `/*!
  * ${name} v${version}
@@ -19,7 +20,7 @@ const globals = {
   'chart.js/helpers': 'Chart.helpers'
 };
 
-export default [
+module.exports = [
   {
     input,
     plugins: [
