@@ -1,3 +1,9 @@
-node_modules/
+# Deployment
 dist/
 /coverage/
+
+# Node.js
+node_modules/
+
+# Development
+.project
