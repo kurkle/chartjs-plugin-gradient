@@ -21,7 +21,7 @@ jobs:
       - run: |
           npm ci
           npm run build
-          npm test
+          xvfb-run --auto-servernum npm test
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
