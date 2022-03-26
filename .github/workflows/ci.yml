@@ -9,8 +9,6 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,11 +22,7 @@ jobs:
           npm ci
           npm run build
           xvfb-run --auto-servernum npm test
-      - name: SonarCloud Scan
-        if: ${{ env.SONAR_TOKEN != null }}
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           lcov-file: ./coverage/chrome/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
