@@ -5,6 +5,10 @@ window.acquireChart = acquireChart;
 
 jasmine.fixtures = specsFromFixtures;
 
+beforeAll(function() {
+  Chart.register(window['chartjs-plugin-gradient']);
+});
+
 beforeEach(function() {
   addMatchers();
 });

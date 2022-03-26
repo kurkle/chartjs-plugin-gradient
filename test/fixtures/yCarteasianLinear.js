@@ -1,7 +1,6 @@
 module.exports = {
   config: {
     type: 'bar',
-    plugins: [window['chartjs-plugin-gradient']],
     data: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
       datasets: [{
