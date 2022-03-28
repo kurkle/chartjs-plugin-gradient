@@ -88,7 +88,7 @@ export default {
           console.warn(`Scale not found for '${axis}'-axis in datasets[${i}] of chart id ${chart.id}, skipping.`);
           continue;
         }
-        if (scale) {
+        if (colors) {
           const value = createGradient(ctx, axis, scale);
           addColors(value, scale, colors);
           setValue(meta, dataset, key, value);
