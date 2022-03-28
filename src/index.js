@@ -62,9 +62,15 @@ const getScale = Chart.version
   ? (meta, axis) => meta[axis + 'Scale']
   : (meta, axis) => meta.controller['_' + axis + 'Scale'];
 
+const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
+
 export default {
   id: 'gradient',
   beforeDatasetsUpdate(chart) {
+    const area = chart.chartArea;
+    if (!areaIsValid(area)) {
+      return;
+    }
     const ctx = chart.ctx;
     const datasets = chart.data.datasets;
     for (let i = 0; i < datasets.length; i++) {
