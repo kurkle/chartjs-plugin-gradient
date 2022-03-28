@@ -62,15 +62,9 @@ const getScale = Chart.version
   ? (meta, axis) => meta[axis + 'Scale']
   : (meta, axis) => meta.controller['_' + axis + 'Scale'];
 
-const areaIsValid = (area) => area && area.right > area.left && area.bottom > area.top;
-
 export default {
   id: 'gradient',
   beforeDatasetsUpdate(chart) {
-    const area = chart.chartArea;
-    if (!areaIsValid(area)) {
-      return;
-    }
     const ctx = chart.ctx;
     const datasets = chart.data.datasets;
     for (let i = 0; i < datasets.length; i++) {
@@ -88,7 +82,7 @@ export default {
           console.warn(`Scale not found for '${axis}'-axis in datasets[${i}] of chart id ${chart.id}, skipping.`);
           continue;
         }
-        if (scale) {
+        if (colors) {
           const value = createGradient(ctx, axis, scale);
           addColors(value, scale, colors);
           setValue(meta, dataset, key, value);
