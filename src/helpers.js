@@ -30,7 +30,7 @@ export function createGradient(ctx, axis, scale) {
 /**
  * Add color stop to a gradient
  * @param {CanvasGradient} gradient - gradient instance
- * @param {Array} colors - all colors to add 
+ * @param {Array} colors - all colors to add
  */
 export function applyColors(gradient, colors) {
   colors.forEach(function(item) {
