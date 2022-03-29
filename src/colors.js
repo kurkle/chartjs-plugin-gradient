@@ -28,7 +28,7 @@ export function getInterpolatedColorByValue(state, keyOption, datasetIndex, valu
   if (state.options.has(keyOption.key)) {
     const option = state.options.get(keyOption.key);
     const gradientData = option.filter((el) => el.datasetIndex === datasetIndex);
-    if (gradientData.length === 1) {
+    if (gradientData.length) {
       const data = gradientData[0];
       const percent = value / data.scale.max;
       let startColor, endColor;

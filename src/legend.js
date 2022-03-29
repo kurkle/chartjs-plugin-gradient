@@ -14,7 +14,7 @@ function setLegendItem(state, ctx, keyOption, item, area) {
   if (state.options.has(keyOption.key)) {
     const option = state.options.get(keyOption.key);
     const gradientData = option.filter((el) => el.datasetIndex === item.datasetIndex);
-    if (gradientData.length === 1) {
+    if (gradientData.length) {
       const data = gradientData[0];
       const value = createGradient(ctx, data.axis, area);
       applyColors(value, data.stopColors);
