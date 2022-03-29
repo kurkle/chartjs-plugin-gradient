@@ -8,10 +8,10 @@ const toRGBs = (l) => l <= 0.0031308 ? l * 12.92 : Math.pow(l, 1.0 / 2.4) * 1.05
 const fromRGBs = (srgb) => srgb <= 0.04045 ? srgb / 12.92 : Math.pow((srgb + 0.055) / 1.055, 2.4);
 
 function interpolate(percent, startColor, endColor) {
-  const startRGBs = rgbs(startColor.color);
-  const startR = fromRGBs(((startRGBs >> 16) & 0xff) / 255);
-  const startG = fromRGBs(((startRGBs >> 8) & 0xff) / 255);
-  const startB = fromRGBs((startRGBs & 0xff) / 255);
+  const start = startColor.color.rgb;
+  const startR = fromRGBs(start.r / 255);
+  const startG = fromRGBs(start.g / 255);
+  const startB = fromRGBs(start.b / 255);
 
   const endRGBs = rgbs(endColor.color);
   const endR = fromRGBs(((endRGBs >> 16) & 0xff) / 255);
