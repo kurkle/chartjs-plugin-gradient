@@ -1,6 +1,5 @@
 /**
  * @typedef { import("chart.js").Chart } Chart
- * @typedef { import("chart.js").Scale } Scale
  */
 
 /**
@@ -14,17 +13,17 @@ export const areaIsValid = (area) => area && area.right > area.left && area.bott
  * Create a canvas gradient
  * @param {CanvasRenderingContext2D} ctx - chart canvas context
  * @param {string} axis - axis type of scale
- * @param {Scale} scale - scale instance
+ * @param {Object} area - scale instance
  * @returns {CanvasGradient} created gradient
  */
-export function createGradient(ctx, axis, scale) {
+export function createGradient(ctx, axis, area) {
   if (axis === 'r') {
-    return ctx.createRadialGradient(scale.xCenter, scale.yCenter, 0, scale.xCenter, scale.yCenter, scale.drawingArea);
+    return ctx.createRadialGradient(area.xCenter, area.yCenter, 0, area.xCenter, area.yCenter, area.drawingArea);
   }
   if (axis === 'y') {
-    return ctx.createLinearGradient(0, scale.bottom, 0, scale.top);
+    return ctx.createLinearGradient(0, area.bottom, 0, area.top);
   }
-  return ctx.createLinearGradient(scale.left, 0, scale.right, 0);
+  return ctx.createLinearGradient(area.left, 0, area.right, 0);
 }
 
 /**
