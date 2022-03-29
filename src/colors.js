@@ -18,11 +18,12 @@ function interpolate(percent, startColor, endColor) {
   const endG = fromRGBs(((endRGBs >> 8) & 0xff) / 255);
   const endB = fromRGBs((endRGBs & 0xff) / 255);
 
-  const r = Math.round(toRGBs(startR + percent * (endR - startR)) * 255);
-  const g = Math.round(toRGBs(startG + percent * (endG - startG)) * 255);
-  const b = Math.round(toRGBs(startB + percent * (endB - startB)) * 255);
-
-  return color({r, g, b, a: 1});
+  return color({
+    r: Math.round(toRGBs(startR + percent * (endR - startR)) * 255),
+    g: Math.round(toRGBs(startG + percent * (endG - startG)) * 255),
+    b: Math.round(toRGBs(startB + percent * (endB - startB)) * 255),
+    a: 1
+  });
 }
 
 /**

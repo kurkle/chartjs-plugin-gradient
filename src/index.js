@@ -3,13 +3,14 @@ import {isNumber, color} from 'chart.js/helpers';
 import {updateLegendItems} from './legend';
 import {areaIsValid, createGradient, applyColors} from './helpers';
 
+const isChartV3 = Chart.version;
 const chartStates = new Map();
 
-const parse = Chart.version
+const parse = isChartV3
   ? (scale, value) => scale.parse(value)
   : (scale, value) => value;
 
-const getScale = Chart.version
+const getScale = isChartV3
   ? (meta, axis) => meta[axis + 'Scale']
   : (meta, axis) => meta.controller['_' + axis + 'Scale'];
 
@@ -74,7 +75,7 @@ export default {
   id: 'gradient',
 
   beforeInit(chart) {
-    const state = new Object();
+    const state = {};
     state.options = new Map();
     chartStates.set(chart, state);
   },
@@ -122,9 +123,12 @@ export default {
 
   afterUpdate(chart) {
     const state = chartStates.get(chart);
-    if (chart.legend && Chart.version) {
+    if (chart.legend && isChartV3) {
       updateLegendItems(chart, state);
     }
-  }
+  },
 
+  destroy(chart) {
+    chartStates.delete(chart);
+  }
 };
