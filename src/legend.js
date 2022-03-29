@@ -12,7 +12,7 @@ const legendBoxHeight = (chart, options) => options.labels && options.labels.fon
 
 function setLegendItem(state, ctx, keyOption, item, area) {
   const data = getGradientData(state, keyOption, item.datasetIndex);
-  if (!data) {
+  if (!data || !data.stopColors.length) {
     return;
   }
   const value = createGradient(ctx, data.axis, area);

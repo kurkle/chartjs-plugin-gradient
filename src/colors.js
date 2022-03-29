@@ -1,7 +1,6 @@
 import {color} from 'chart.js/helpers';
 import {getGradientData, getPixelStop} from './helpers';
 
-const rgbs = (c) => Math.round(c._rgb.a * 255) << 24 | c._rgb.r << 16 | c._rgb.g << 8 | c._rgb.b;
 // IEC 61966-2-1:1999
 const toRGBs = (l) => l <= 0.0031308 ? l * 12.92 : Math.pow(l, 1.0 / 2.4) * 1.055 - 0.055;
 // IEC 61966-2-1:1999
@@ -13,10 +12,10 @@ function interpolate(percent, startColor, endColor) {
   const startG = fromRGBs(start.g / 255);
   const startB = fromRGBs(start.b / 255);
 
-  const endRGBs = rgbs(endColor.color);
-  const endR = fromRGBs(((endRGBs >> 16) & 0xff) / 255);
-  const endG = fromRGBs(((endRGBs >> 8) & 0xff) / 255);
-  const endB = fromRGBs((endRGBs & 0xff) / 255);
+  const end = endColor.color.rgb;
+  const endR = fromRGBs(end.r / 255);
+  const endG = fromRGBs(end.g / 255);
+  const endB = fromRGBs(end.b / 255);
 
   return color({
     r: Math.round(toRGBs(startR + percent * (endR - startR)) * 255),
@@ -36,7 +35,7 @@ function interpolate(percent, startColor, endColor) {
  */
 export function getInterpolatedColorByValue(state, keyOption, datasetIndex, value) {
   const data = getGradientData(state, keyOption, datasetIndex);
-  if (!data) {
+  if (!data || !data.stopColors.length) {
     return;
   }
   const {stop: percent} = getPixelStop(data.scale, value);

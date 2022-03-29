@@ -92,8 +92,10 @@ export default {
           stateOptions.push(option);
           const value = createGradient(ctx, axis, scale);
           addColors(scale, colors, option.stopColors);
-          applyColors(value, option.stopColors);
-          setValue(meta, dataset, key, value);
+          if (option.stopColors.length) {
+            applyColors(value, option.stopColors);
+            setValue(meta, dataset, key, value);
+          }
         }
       }
     }
