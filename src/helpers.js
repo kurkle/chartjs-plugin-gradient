@@ -17,3 +17,13 @@ export function applyColors(gradient, colors) {
     );
   });
 }
+
+export function getGradientData(state, keyOption, datasetIndex) {
+  if (state.options.has(keyOption.key)) {
+    const option = state.options.get(keyOption.key);
+    const gradientData = option.filter((el) => el.datasetIndex === datasetIndex);
+    if (gradientData.length) {
+      return gradientData[0];
+    }
+  }
+}

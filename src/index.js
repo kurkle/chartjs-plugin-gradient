@@ -122,7 +122,7 @@ export default {
 
   afterUpdate(chart) {
     const state = chartStates.get(chart);
-    if (chart.legend && Chart.version && state.options.length) {
+    if (chart.legend && Chart.version) {
       updateLegendItems(chart, state);
     }
   }

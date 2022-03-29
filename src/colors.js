@@ -1,4 +1,5 @@
 import {color} from 'chart.js/helpers';
+import {getGradientData} from './helpers';
 
 const rgbs = (c) => Math.round(c._rgb.a * 255) << 24 | c._rgb.r << 16 | c._rgb.g << 8 | c._rgb.b;
 // IEC 61966-2-1:1999
@@ -24,28 +25,33 @@ function interpolate(percent, startColor, endColor) {
   return color({r, g, b, a: 1});
 }
 
+/**
+ * Calculate a color from gradient stop color by a value of the dataset.
+ * @param {Object} state - state of the plugin
+ * @param {{key: string, legendItemKey: string}} keyOption - option of the dataset where the gradient is applied
+ * @param {number} datasetIndex - dataset index
+ * @param {number} value - value used for searching the color
+ * @returns {Object} calculated color
+ */
 export function getInterpolatedColorByValue(state, keyOption, datasetIndex, value) {
-  if (state.options.has(keyOption.key)) {
-    const option = state.options.get(keyOption.key);
-    const gradientData = option.filter((el) => el.datasetIndex === datasetIndex);
-    if (gradientData.length) {
-      const data = gradientData[0];
-      const percent = value / data.scale.max;
-      let startColor, endColor;
-      for (const stopColor of data.stopColors) {
-        if (stopColor.stop === percent) {
-          return stopColor.color;
-        }
-        if (stopColor.stop < percent) {
-          startColor = stopColor;
-        } else if (stopColor.stop > percent && !endColor) {
-          endColor = stopColor;
-        }
-      }
-      if (!endColor) {
-        return startColor;
-      }
-      return interpolate(percent, startColor, endColor);
+  const data = getGradientData(state, keyOption, datasetIndex);
+  if (!data) {
+    return;
+  }
+  const percent = data.scale.options.reverse ? 1 - value / data.scale.max : value / data.scale.max;
+  let startColor, endColor;
+  for (const stopColor of data.stopColors) {
+    if (stopColor.stop === percent) {
+      return stopColor.color;
+    }
+    if (stopColor.stop < percent) {
+      startColor = stopColor;
+    } else if (stopColor.stop > percent && !endColor) {
+      endColor = stopColor;
     }
   }
+  if (!endColor) {
+    return startColor;
+  }
+  return interpolate(percent, startColor, endColor);
 }

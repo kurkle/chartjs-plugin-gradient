@@ -1,6 +1,6 @@
 import {defined} from 'chart.js/helpers';
 import {getInterpolatedColorByValue} from './colors';
-import {areaIsValid, createGradient, applyColors} from './helpers';
+import {areaIsValid, createGradient, applyColors, getGradientData} from './helpers';
 
 const legendOptions = [
   {key: 'backgroundColor', legendItemKey: 'fillStyle'},
@@ -11,16 +11,13 @@ const legendBoxHeight = (chart, options) => options.labels && options.labels.fon
   : chart.options.font.size;
 
 function setLegendItem(state, ctx, keyOption, item, area) {
-  if (state.options.has(keyOption.key)) {
-    const option = state.options.get(keyOption.key);
-    const gradientData = option.filter((el) => el.datasetIndex === item.datasetIndex);
-    if (gradientData.length) {
-      const data = gradientData[0];
-      const value = createGradient(ctx, data.axis, area);
-      applyColors(value, data.stopColors);
-      item[keyOption.legendItemKey] = value;
-    }
+  const data = getGradientData(state, keyOption, item.datasetIndex);
+  if (!data) {
+    return;
   }
+  const value = createGradient(ctx, data.axis, area);
+  applyColors(value, data.stopColors);
+  item[keyOption.legendItemKey] = value;
 }
 
 function buildArea(hitBox, {boxWidth, boxHeight}) {
@@ -46,8 +43,7 @@ function applyGradientToLegendByDatasetIndex(chart, state, item, boxSize) {
 }
 
 function applyGradientToLegendByDataIndex(chart, state, dataset, datasetIndex) {
-  for (let i = 0; i < chart.legend.legendItems.length; i++) {
-    const item = chart.legend.legendItems[i];
+  for (const item of chart.legend.legendItems) {
     legendOptions.forEach(function(keyOption) {
       const value = dataset.data[item.index];
       const c = getInterpolatedColorByValue(state, keyOption, datasetIndex, value);
@@ -59,18 +55,19 @@ function applyGradientToLegendByDataIndex(chart, state, dataset, datasetIndex) {
 }
 
 export function updateLegendItems(chart, state) {
-  const boxHeight = chart.legend.options.labels.boxHeight
-    ? chart.legend.options.labels.boxHeight
-    : legendBoxHeight(chart, chart.legend.options);
-  const boxWidth = chart.legend.options.labels.boxWidth;
+  const legend = chart.legend;
+  const options = legend.options;
+  const boxHeight = options.labels.boxHeight
+    ? options.labels.boxHeight
+    : legendBoxHeight(chart, options);
+  const boxWidth = options.labels.boxWidth;
   const datasets = chart.data.datasets;
   for (let i = 0; i < datasets.length; i++) {
-    const item = chart.legend.legendItems[i];
+    const item = legend.legendItems[i];
     if (item.datasetIndex === i) {
       applyGradientToLegendByDatasetIndex(chart, state, item, {boxWidth, boxHeight});
     } else {
-      const dataset = datasets[i];
-      applyGradientToLegendByDataIndex(chart, state, dataset, i);
+      applyGradientToLegendByDataIndex(chart, state, datasets[i], i);
     }
   }
 }
