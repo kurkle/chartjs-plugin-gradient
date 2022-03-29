@@ -1,5 +1,20 @@
+import {Chart} from 'chart.js';
+import {isNumber} from 'chart.js/helpers';
+
+export const isChartV3 = Chart.version;
+
+const parse = isChartV3
+  ? (scale, value) => scale.parse(value)
+  : (scale, value) => value;
+
+function scaleValue(scale, value) {
+  const normValue = isNumber(value) ? parseFloat(value) : parse(scale, value);
+  return scale.getPixelForValue(normValue);
+}
+
 /**
  * @typedef { import("chart.js").Chart } Chart
+ * @typedef { import("chart.js").Scale } Scale
  */
 
 /**
@@ -54,4 +69,21 @@ export function getGradientData(state, keyOption, datasetIndex) {
       return gradientData[0];
     }
   }
+}
+
+/**
+ * Get the pixel and its percentage on the scale, used for color stop in the gradient, for the passed value
+ * @param {Scale} scale - scale used by dataset
+ * @param {string|number} value - value to search
+ * @returns {{pixel: number, stop: number}} the pixel and its percentage on the scale, used for color stop in the gradient
+ */
+export function getPixelStop(scale, value) {
+  if (scale.type === 'radialLinear') {
+    const distance = scale.getDistanceFromCenterForValue(value);
+    return {pixel: distance, stop: distance / scale.drawingArea};
+  }
+  const reverse = scale.options.reverse;
+  const pixel = scaleValue(scale, value);
+  const stop = scale.getDecimalForPixel(pixel);
+  return {pixel, stop: reverse ? 1 - stop : stop};
 }

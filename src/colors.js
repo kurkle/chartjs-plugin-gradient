@@ -1,5 +1,5 @@
 import {color} from 'chart.js/helpers';
-import {getGradientData} from './helpers';
+import {getGradientData, getPixelStop} from './helpers';
 
 const rgbs = (c) => Math.round(c._rgb.a * 255) << 24 | c._rgb.r << 16 | c._rgb.g << 8 | c._rgb.b;
 // IEC 61966-2-1:1999
@@ -39,7 +39,7 @@ export function getInterpolatedColorByValue(state, keyOption, datasetIndex, valu
   if (!data) {
     return;
   }
-  const percent = data.scale.options.reverse ? 1 - value / data.scale.max : value / data.scale.max;
+  const {stop: percent} = getPixelStop(data.scale, value);
   let startColor, endColor;
   for (const stopColor of data.stopColors) {
     if (stopColor.stop === percent) {

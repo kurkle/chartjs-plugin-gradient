@@ -1,34 +1,12 @@
-import {Chart} from 'chart.js';
-import {isNumber, color} from 'chart.js/helpers';
+import {color} from 'chart.js/helpers';
 import {updateLegendItems} from './legend';
-import {areaIsValid, createGradient, applyColors} from './helpers';
+import {areaIsValid, createGradient, applyColors, getPixelStop, isChartV3} from './helpers';
 
-const isChartV3 = Chart.version;
 const chartStates = new Map();
-
-const parse = isChartV3
-  ? (scale, value) => scale.parse(value)
-  : (scale, value) => value;
 
 const getScale = isChartV3
   ? (meta, axis) => meta[axis + 'Scale']
   : (meta, axis) => meta.controller['_' + axis + 'Scale'];
-
-function scaleValue(scale, value) {
-  const normValue = isNumber(value) ? parseFloat(value) : parse(scale, value);
-  return scale.getPixelForValue(normValue);
-}
-
-function getPixelStop(scale, value) {
-  if (scale.type === 'radialLinear') {
-    const distance = scale.getDistanceFromCenterForValue(value);
-    return {pixel: distance, stop: distance / scale.drawingArea};
-  }
-  const reverse = scale.options.reverse;
-  const pixel = scaleValue(scale, value);
-  const stop = scale.getDecimalForPixel(pixel);
-  return {pixel, stop: reverse ? 1 - stop : stop};
-}
 
 function addColors(scale, colors, stopColors) {
   for (const value of Object.keys(colors)) {
