@@ -49,6 +49,35 @@ function getStateOptions(state, meta, key, datasetIndex) {
   return stateOptions;
 }
 
+function updateDataset(chart, state, gradient, dataset, datasetIndex) {
+  const ctx = chart.ctx;
+  const meta = chart.getDatasetMeta(datasetIndex);
+  for (const [key, options] of Object.entries(gradient)) {
+    const {axis, colors} = options;
+    const scale = getScale(meta, axis);
+    if (!scale) {
+      console.warn(`Scale not found for '${axis}'-axis in datasets[${datasetIndex}] of chart id ${chart.id}, skipping.`);
+      continue;
+    }
+    const stateOptions = getStateOptions(state, meta, key, datasetIndex);
+    if (colors && !meta.hidden) {
+      const option = {
+        datasetIndex,
+        axis,
+        scale,
+        stopColors: []
+      };
+      stateOptions.push(option);
+      const value = createGradient(ctx, axis, scale);
+      addColors(scale, colors, option.stopColors);
+      if (option.stopColors.length) {
+        applyColors(value, option.stopColors);
+        setValue(meta, dataset, key, value);
+      }
+    }
+  }
+}
+
 export default {
   id: 'gradient',
 
@@ -64,39 +93,12 @@ export default {
       return;
     }
     const state = chartStates.get(chart);
-    const ctx = chart.ctx;
     const datasets = chart.data.datasets;
     for (let i = 0; i < datasets.length; i++) {
       const dataset = datasets[i];
       const gradient = dataset.gradient;
-      if (!gradient) {
-        continue;
-      }
-      const meta = chart.getDatasetMeta(i);
-
-      for (const [key, options] of Object.entries(gradient)) {
-        const {axis, colors} = options;
-        const scale = getScale(meta, axis);
-        if (!scale) {
-          console.warn(`Scale not found for '${axis}'-axis in datasets[${i}] of chart id ${chart.id}, skipping.`);
-          continue;
-        }
-        const stateOptions = getStateOptions(state, meta, key, i);
-        if (colors && !meta.hidden) {
-          const option = {
-            datasetIndex: i,
-            axis,
-            scale,
-            stopColors: []
-          };
-          stateOptions.push(option);
-          const value = createGradient(ctx, axis, scale);
-          addColors(scale, colors, option.stopColors);
-          if (option.stopColors.length) {
-            applyColors(value, option.stopColors);
-            setValue(meta, dataset, key, value);
-          }
-        }
+      if (gradient) {
+        updateDataset(chart, state, gradient, dataset, i);
       }
     }
   },
