@@ -54,6 +54,15 @@ function applyGradientToLegendByDataIndex(chart, state, dataset, datasetIndex) {
   }
 }
 
+/**
+ * @typedef { import("chart.js").Chart } Chart
+ */
+
+/**
+ * Udpate the legend items, applying the gradients
+ * @param {Chart} chart - chart instance
+ * @param {Object} state - state of the plugin
+ */
 export function updateLegendItems(chart, state) {
   const legend = chart.legend;
   const options = legend.options;
