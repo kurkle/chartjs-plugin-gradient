@@ -52,6 +52,9 @@ function getStateOptions(state, meta, key, datasetIndex) {
 function updateDataset(chart, state, gradient, dataset, datasetIndex) {
   const ctx = chart.ctx;
   const meta = chart.getDatasetMeta(datasetIndex);
+  if (meta.hidden) {
+    return;
+  }
   for (const [key, options] of Object.entries(gradient)) {
     const {axis, colors} = options;
     const scale = getScale(meta, axis);
