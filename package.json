@@ -1,6 +1,6 @@
 {
   "name": "chartjs-plugin-gradient",
-  "version": "0.2.2",
+  "version": "0.4.0",
   "description": "Easy gradient colors for Chart.js",
   "main": "dist/chartjs-plugin-gradient.js",
   "module": "dist/chartjs-plugin-gradient.ems.js",
