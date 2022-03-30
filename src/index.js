@@ -66,20 +66,18 @@ function updateDataset(chart, state, gradient, dataset, datasetIndex) {
       continue;
     }
     const stateOptions = getStateOptions(state, meta, key, datasetIndex);
-    if (colors && !meta.hidden) {
-      const option = {
-        datasetIndex,
-        axis,
-        scale,
-        stopColors: []
-      };
-      stateOptions.push(option);
-      const value = createGradient(ctx, axis, scale);
-      addColors(scale, colors, option.stopColors);
-      if (option.stopColors.length) {
-        applyColors(value, option.stopColors);
-        setValue(meta, dataset, key, value);
-      }
+    const option = {
+      datasetIndex,
+      axis,
+      scale,
+      stopColors: []
+    };
+    stateOptions.push(option);
+    const value = createGradient(ctx, axis, scale);
+    addColors(scale, colors, option.stopColors);
+    if (option.stopColors.length) {
+      applyColors(value, option.stopColors);
+      setValue(meta, dataset, key, value);
     }
   }
 }
