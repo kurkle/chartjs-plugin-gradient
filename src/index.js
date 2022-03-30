@@ -57,6 +57,9 @@ function updateDataset(chart, state, gradient, dataset, datasetIndex) {
   }
   for (const [key, options] of Object.entries(gradient)) {
     const {axis, colors} = options;
+    if (!colors) {
+      continue;
+    }
     const scale = getScale(meta, axis);
     if (!scale) {
       console.warn(`Scale not found for '${axis}'-axis in datasets[${datasetIndex}] of chart id ${chart.id}, skipping.`);
