@@ -59,7 +59,7 @@ export function applyColors(gradient, colors) {
  * @param {Object} state - state of the plugin
  * @param {{key: string, legendItemKey: string}} keyOption - option of the dataset where the gradient is applied
  * @param {number} datasetIndex - dataset index
- * @returns {Object} gradient plugin configuration from the state for a specific dataset option
+ * @returns {Object|undefined} gradient plugin configuration from the state for a specific dataset option
  */
 export function getGradientData(state, keyOption, datasetIndex) {
   if (state.options.has(keyOption.key)) {

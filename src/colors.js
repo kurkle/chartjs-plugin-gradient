@@ -21,7 +21,7 @@ function interpolate(percent, startColor, endColor) {
     r: Math.round(toRGBs(startR + percent * (endR - startR)) * 255),
     g: Math.round(toRGBs(startG + percent * (endG - startG)) * 255),
     b: Math.round(toRGBs(startB + percent * (endB - startB)) * 255),
-    a: 1
+    a: start.a + percent * Math.abs(end.a - start.a)
   });
 }
 
