@@ -1,7 +1,8 @@
-import {acquireChart, addMatchers, releaseCharts, specsFromFixtures} from 'chartjs-test-utils';
+import {acquireChart, addMatchers, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
 
 window.devicePixelRatio = 1;
 window.acquireChart = acquireChart;
+window.triggerMouseEvent = triggerMouseEvent;
 
 jasmine.fixtures = specsFromFixtures;
 
