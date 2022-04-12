@@ -109,7 +109,7 @@ export default {
 
   afterUpdate(chart) {
     const state = chartStates.get(chart);
-    if (chart.legend && isChartV3) {
+    if (chart.legend && chart.legend.options.display !== false && isChartV3) {
       updateLegendItems(chart, state);
     }
   },
