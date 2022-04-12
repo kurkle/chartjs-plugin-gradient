@@ -16,19 +16,19 @@ module.exports = {
           }
         }
       },
-        {
-          data: [-65, -29, -80, -10, -55, 0, -40],
-          gradient: {
-            backgroundColor: {
-              axis: 'y',
-              colors: {
-                0: 'red',
-                50: 'yellow',
-                80: 'green',
-              }
+      {
+        data: [-65, -29, -80, -10, -55, 0, -40],
+        gradient: {
+          backgroundColor: {
+            axis: 'y',
+            colors: {
+              0: 'red',
+              50: 'yellow',
+              80: 'green',
             }
           }
-        }],
+        }
+      }],
     },
     options: {
       scales: {
