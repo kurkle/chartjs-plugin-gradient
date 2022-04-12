@@ -48,9 +48,7 @@ module.exports = {
         }
       },
       plugins: {
-        legend: {
-          display: false,
-        }
+        legend: false
       }
     }
   },
