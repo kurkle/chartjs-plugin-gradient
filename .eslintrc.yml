@@ -2,11 +2,14 @@ extends:
   - chartjs
   - plugin:es/no-new-in-es2019
   - plugin:markdown/recommended
+  - plugin:@typescript-eslint/recommended
 
 env:
   es6: true
   browser: true
   node: true
+
+parser: '@typescript-eslint/parser'
 
 parserOptions:
   ecmaVersion: 2018
@@ -15,7 +18,7 @@ parserOptions:
     impliedStrict: true
     modules: true
 
-plugins: ['html', 'es']
+plugins: ['html', 'es', '@typescript-eslint']
 
 rules:
   class-methods-use-this: "off"
