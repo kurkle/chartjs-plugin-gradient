@@ -8,6 +8,8 @@ jasmine.fixtures = specsFromFixtures;
 
 beforeAll(function() {
   Chart.register(window['chartjs-plugin-gradient']);
+  // Disable colors plugin for tests.
+  Chart.defaults.plugins.colors.enabled = false;
 });
 
 beforeEach(function() {
