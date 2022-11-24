@@ -62,9 +62,9 @@ module.exports = function(karma) {
     files: [
       {pattern: 'test/fixtures/*.js', included: false},
       {pattern: 'test/fixtures/*.png', included: false},
-      {pattern: 'node_modules/chart.js/dist/chart.js'},
+      {pattern: 'node_modules/chart.js/dist/chart.umd.js'},
       {pattern: 'node_modules/luxon/build/global/luxon.js'},
-      {pattern: 'node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.js'},
+      {pattern: 'node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.umd.js'},
       {pattern: 'src/index.js', watched: false},
       {pattern: 'test/index.js'},
       {pattern: 'test/specs/**.js'}
