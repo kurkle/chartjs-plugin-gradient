@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const istanbul = require('rollup-plugin-istanbul');
 const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve').default;
-const builds = require('./rollup.config');
 const yargs = require('yargs');
 const env = process.env.NODE_ENV;
 
-module.exports = function(karma) {
+module.exports = async function(karma) {
+  const builds = (await import('./rollup.config.js')).default;
   const args = yargs
     .option('verbose', {default: false})
     .argv;

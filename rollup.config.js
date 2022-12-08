@@ -1,7 +1,8 @@
-const json = require('@rollup/plugin-json');
-const resolve = require('@rollup/plugin-node-resolve').default;
-const terser = require('@rollup/plugin-terser').default;
-const {name, version, homepage, main, module: _module} = require('./package.json');
+import resolve from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
+import {readFileSync} from 'fs';
+
+const {name, version, homepage, main} = JSON.parse(readFileSync('./package.json'));
 
 const banner = `/*!
  * ${name} v${version}
@@ -20,7 +21,7 @@ const globals = {
   'chart.js/helpers': 'Chart.helpers'
 };
 
-module.exports = [
+export default [
   {
     input,
     plugins: [
@@ -29,6 +30,20 @@ module.exports = [
     output: {
       name,
       file: main,
+      banner,
+      format: 'esm',
+      indent: false
+    },
+    external
+  },
+  {
+    input,
+    plugins: [
+      resolve()
+    ],
+    output: {
+      name,
+      file: main.replace('.esm.js', '.js'),
       banner,
       format: 'umd',
       indent: false,
@@ -48,25 +63,11 @@ module.exports = [
     ],
     output: {
       name,
-      file: main.replace('.js', '.min.js'),
+      file: main.replace('.esm.js', '.min.js'),
       format: 'umd',
       sourcemap: true,
       indent: false,
       globals
-    },
-    external
-  },
-  {
-    input,
-    plugins: [
-      resolve()
-    ],
-    output: {
-      name,
-      file: main.replace('.js', '.esm.js'),
-      banner,
-      format: 'esm',
-      indent: false
     },
     external
   },

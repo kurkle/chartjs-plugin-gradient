@@ -1,18 +1,26 @@
 {
   "name": "chartjs-plugin-gradient",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Easy gradient colors for Chart.js",
-  "main": "dist/chartjs-plugin-gradient.js",
-  "module": "dist/chartjs-plugin-gradient.esm.js",
+  "type": "module",
+  "main": "dist/chartjs-plugin-gradient.esm.js",
+  "jsdelivr": "dist/dist/chartjs-plugin-gradient.min.js",
+  "unpkg": "dist/dist/chartjs-plugin-gradient.min.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/chartjs-plugin-gradient.esm.js"
+    }
+  },
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "dev": "karma start --auto-watch --no-single-run --browsers chrome",
-    "dev:ff": "karma start --auto-watch --no-single-run --browsers firefox",
+    "dev": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers chrome",
+    "dev:ff": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers firefox",
     "lint": "concurrently --group \"npm:lint-*\"",
     "lint-js": "eslint \"test/**/*.js\" \"src/**/*.js\" \"types/**/*.ts\"",
     "test": "cross-env NODE_ENV=test concurrently --group \"npm:test-*\"",
-    "test-karma": "karma start --auto-watch --single-run",
+    "test-karma": "karma start ./karma.conf.cjs --auto-watch --single-run",
     "test-lint": "npm run lint"
   },
   "repository": {
@@ -20,7 +28,7 @@
     "url": "git+https://github.com/kurkle/chartjs-plugin-gradient.git"
   },
   "files": [
-    "dist/*.js",
+    "dist/*",
     "types/*.d.ts"
   ],
   "keywords": [
