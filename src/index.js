@@ -114,7 +114,13 @@ export default {
     }
   },
 
+  // compatibility Chart.js v3
   destroy(chart) {
     chartStates.delete(chart);
+  },
+
+  afterDestroy(chart) {
+    chartStates.delete(chart);
   }
+
 };
