@@ -45,9 +45,9 @@
   },
   "homepage": "https://github.com/kurkle/chartjs-plugin-gradient#readme",
   "devDependencies": {
-    "@rollup/plugin-json": "^5.0.1",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-terser": "^0.1.0",
+    "@rollup/plugin-terser": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "chart.js": "^4.0.1",
