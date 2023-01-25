@@ -10,7 +10,7 @@ This plugin requires Chart.js 3.0.0 or later. It should also work with v2, but t
 
 ## Example
 
-![Example chart](https://github.com/kurkle/chartjs-plugin-gradient/raw/master/sample.png "Example chart")
+![Example chart](https://github.com/kurkle/chartjs-plugin-gradient/raw/main/sample.png "Example chart")
 
 ## Installation
 
@@ -96,4 +96,4 @@ const chart = new Chart(ctx, {
 
 ## License
 
-`chartjs-plugin-gradient.js` is available under the [MIT license](https://github.com/kurkle/chartjs-plugin-gradient/blob/master/LICENSE).
+`chartjs-plugin-gradient.js` is available under the [MIT license](https://github.com/kurkle/chartjs-plugin-gradient/blob/main/LICENSE).
