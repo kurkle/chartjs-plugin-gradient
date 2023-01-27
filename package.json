@@ -19,7 +19,7 @@
     "lint": "concurrently --group \"npm:lint-*\"",
     "lint-js": "eslint \"test/**/*.js\" \"src/**/*.js\" \"types/**/*.ts\"",
     "test": "cross-env NODE_ENV=test concurrently --group \"npm:test-*\"",
-    "test-karma": "karma start ./karma.conf.cjs --auto-watch --single-run",
+    "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
     "test-lint": "npm run lint"
   },
   "repository": {
