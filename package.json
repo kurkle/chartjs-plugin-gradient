@@ -67,7 +67,7 @@
     "karma-firefox-launcher": "^2.1.0",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
-    "karma-rollup-preprocessor": "7.0.7",
+    "karma-rollup-preprocessor": "7.0.8",
     "luxon": "^3.1.0",
     "mocha": "^10.1.0",
     "pixelmatch": "^5.2.1",
