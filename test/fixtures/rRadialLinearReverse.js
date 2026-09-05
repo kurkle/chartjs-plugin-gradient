@@ -1,39 +1,41 @@
 module.exports = {
   config: {
-    type: 'radar',
     data: {
+      datasets: [
+        {
+          data: [0, 29, 80, 91, 55, 5, 40],
+          gradient: {
+            backgroundColor: {
+              axis: 'r',
+              colors: {
+                0: 'red',
+                50: 'yellow',
+                80: 'green',
+              },
+            },
+          },
+        },
+      ],
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      datasets: [{
-        data: [0, 29, 80, 91, 55, 5, 40],
-        gradient: {
-          backgroundColor: {
-            axis: 'r',
-            colors: {
-              0: 'red',
-              50: 'yellow',
-              80: 'green',
-            }
-          }
-        }
-      }],
     },
     options: {
+      plugins: {
+        legend: false,
+      },
       scales: {
         r: {
+          beginAtZero: true,
           display: true,
           reverse: true,
-          beginAtZero: true,
           ticks: {
-            z: 100
-          }
-        }
+            z: 100,
+          },
+        },
       },
-      plugins: {
-        legend: false
-      }
-    }
+    },
+    type: 'radar',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}

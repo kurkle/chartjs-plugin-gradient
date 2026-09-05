@@ -1,58 +1,60 @@
 module.exports = {
   config: {
-    type: 'line',
     data: {
-      datasets: [{
-        data: [
-          {x: 1648418400000, y: 24},
-          {x: 1648504800000, y: 52},
-          {x: 1648591200000, y: 79},
-          {x: 1648677600000, y: 32},
-          {x: 1648764000000, y: 16},
-          {x: 1648850400000, y: 69},
-          {x: 1648936800000, y: 95},
-        ],
-        fill: true,
-        gradient: {
-          backgroundColor: {
-            axis: 'x',
-            colors: {
-              1648418400000: 'red',
-              1648677600000: 'yellow',
-              1648936800000: 'green',
-            }
-          }
-        }
-      }],
+      datasets: [
+        {
+          data: [
+            { x: 1648418400000, y: 24 },
+            { x: 1648504800000, y: 52 },
+            { x: 1648591200000, y: 79 },
+            { x: 1648677600000, y: 32 },
+            { x: 1648764000000, y: 16 },
+            { x: 1648850400000, y: 69 },
+            { x: 1648936800000, y: 95 },
+          ],
+          fill: true,
+          gradient: {
+            backgroundColor: {
+              axis: 'x',
+              colors: {
+                1648418400000: 'red',
+                1648677600000: 'yellow',
+                1648936800000: 'green',
+              },
+            },
+          },
+        },
+      ],
     },
     options: {
+      plugins: {
+        legend: false,
+      },
       scales: {
         x: {
-          type: 'time',
-          display: true,
           adapters: {
             date: {
               locale: 'en-US',
               setZone: true,
-              zone: 'Europe/Rome'
-            }
+              zone: 'Europe/Rome',
+            },
           },
+          display: true,
           time: {
+            parser: 'dd/MM/yyyy',
             unit: 'day',
-            parser: 'dd/MM/yyyy'
           },
+          type: 'time',
         },
         y: {
+          beginAtZero: true,
           display: false,
-          beginAtZero: true
-        }
+        },
       },
-      plugins: {
-        legend: false
-      }
-    }
+    },
+    type: 'line',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}

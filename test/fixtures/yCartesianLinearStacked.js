@@ -1,50 +1,52 @@
 module.exports = {
   config: {
-    type: 'line',
     data: {
+      datasets: [
+        {
+          data: [65, 29, 80, 91, 55, 5, 40],
+          fill: true,
+          gradient: {
+            backgroundColor: {
+              axis: 'y',
+              colors: {
+                0: 'red',
+                50: 'yellow',
+                80: 'green',
+              },
+            },
+          },
+        },
+      ],
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      datasets: [{
-        data: [65, 29, 80, 91, 55, 5, 40],
-        fill: true,
-        gradient: {
-          backgroundColor: {
-            axis: 'y',
-            colors: {
-              0: 'red',
-              50: 'yellow',
-              80: 'green',
-            }
-          }
-        }
-      }],
     },
     options: {
+      plugins: {
+        legend: false,
+      },
       scales: {
         x: {
           display: false,
         },
         y: {
-          type: 'linear',
-          display: true,
           beginAtZero: true,
+          display: true,
           stack: 'demo',
-          stackWeight: 2
+          stackWeight: 2,
+          type: 'linear',
         },
         y2: {
-          type: 'category',
           labels: ['ON', 'OFF'],
           offset: true,
           position: 'left',
           stack: 'demo',
-          stackWeight: 1
-        }
+          stackWeight: 1,
+          type: 'category',
+        },
       },
-      plugins: {
-        legend: false
-      }
-    }
+    },
+    type: 'line',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}
