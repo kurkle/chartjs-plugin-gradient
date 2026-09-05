@@ -1,6 +1,11 @@
 # chartjs-plugin-gradient
 
+[![npm](https://img.shields.io/npm/v/chartjs-plugin-gradient.svg)](https://www.npmjs.com/package/chartjs-plugin-gradient)
+[![release](https://img.shields.io/github/release/kurkle/chartjs-plugin-gradient.svg?style=flat-square)](https://github.com/kurkle/chartjs-plugin-gradient/releases/latest)
+![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-plugin-gradient.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-plugin-gradient&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-plugin-gradient)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-plugin-gradient&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-plugin-gradient)
+![GitHub](https://img.shields.io/github/license/kurkle/chartjs-plugin-gradient.svg)
 
 *Easy gradients for [Chart.js](https://www.chartjs.org)*
 
