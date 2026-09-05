@@ -47,4 +47,7 @@ module.exports = {
   options: {
     spriteText: true,
   },
+  // Radial legend hitbox anti-aliasing differs slightly across Chrome versions/platforms;
+  // widen the default 0.1% tolerance to avoid failing on that noise alone.
+  tolerance: 0.002,
 }
