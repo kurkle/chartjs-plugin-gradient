@@ -3,13 +3,16 @@
   "version": "0.0.0-development",
   "description": "Easy gradient colors for Chart.js",
   "type": "module",
-  "main": "dist/chartjs-plugin-gradient.esm.js",
+  "sideEffects": false,
+  "main": "dist/chartjs-plugin-gradient.cjs",
+  "module": "dist/chartjs-plugin-gradient.esm.js",
   "jsdelivr": "dist/chartjs-plugin-gradient.min.js",
   "unpkg": "dist/chartjs-plugin-gradient.min.js",
   "exports": {
     "types": "./types/index.d.ts",
     "import": "./dist/chartjs-plugin-gradient.esm.js",
-    "require": "./dist/chartjs-plugin-gradient.min.js"
+    "require": "./dist/chartjs-plugin-gradient.cjs",
+    "script": "./dist/chartjs-plugin-gradient.min.js"
   },
   "types": "./types/index.d.ts",
   "scripts": {
