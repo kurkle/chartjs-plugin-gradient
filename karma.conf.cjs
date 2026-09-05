@@ -1,12 +1,10 @@
 const istanbul = require('rollup-plugin-istanbul')
 const json = require('@rollup/plugin-json')
 const resolve = require('@rollup/plugin-node-resolve').default
-const yargs = require('yargs')
 const env = process.env.NODE_ENV
 
 module.exports = async (karma) => {
   const builds = (await import('./rollup.config.js')).default
-  const args = yargs.option('verbose', { default: false }).argv
 
   // Use the same rollup config as our dist files: when debugging (npm run dev),
   // we will prefer the unminified build which is easier to browse and works
@@ -29,7 +27,7 @@ module.exports = async (karma) => {
     browserDisconnectTimeout: 120000,
     browserDisconnectTolerance: 3,
     browserNoActivityTimeout: 120000,
-    browsers: (args.browsers || 'chrome,firefox').split(','),
+    browsers: ['chrome', 'firefox'],
 
     // These settings deal with browser disconnects. We had seen test flakiness from Firefox
     // [Firefox 56.0.0 (Linux 0.0.0)]: Disconnected (1 times), because no message in 10000 ms.
