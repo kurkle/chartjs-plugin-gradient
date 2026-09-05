@@ -1,46 +1,48 @@
 module.exports = {
   config: {
-    type: 'line',
     data: {
+      datasets: [
+        {
+          borderWidth: 2,
+          data: [65, 29, 80, 91, 55, 5, 40],
+          gradient: {
+            pointBorderColor: {
+              axis: 'y',
+              colors: {
+                0: 'red',
+                50: 'yellow',
+                80: 'green',
+              },
+            },
+          },
+          pointRadius: 10,
+        },
+      ],
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      datasets: [{
-        data: [65, 29, 80, 91, 55, 5, 40],
-        borderWidth: 2,
-        pointRadius: 10,
-        gradient: {
-          pointBorderColor: {
-            axis: 'y',
-            colors: {
-              0: 'red',
-              50: 'yellow',
-              80: 'green',
-            }
-          }
-        }
-      }],
     },
     options: {
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 24,
+            },
+          },
+        },
+      },
       scales: {
         x: {
           display: false,
         },
         y: {
+          beginAtZero: true,
           display: false,
-          beginAtZero: true
-        }
+        },
       },
-      plugins: {
-        legend: {
-          labels: {
-            font: {
-              size: 24
-            }
-          }
-        }
-      }
-    }
+    },
+    type: 'line',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}

@@ -1,23 +1,29 @@
-import {acquireChart, addMatchers, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
+import {
+  acquireChart,
+  addMatchers,
+  releaseCharts,
+  specsFromFixtures,
+  triggerMouseEvent,
+} from 'chartjs-test-utils'
 
-window.devicePixelRatio = 1;
-window.acquireChart = acquireChart;
-window.triggerMouseEvent = triggerMouseEvent;
+window.devicePixelRatio = 1
+window.acquireChart = acquireChart
+window.triggerMouseEvent = triggerMouseEvent
 
-jasmine.fixtures = specsFromFixtures;
+jasmine.fixtures = specsFromFixtures
 
-beforeAll(function() {
-  Chart.register(window['chartjs-plugin-gradient']);
+beforeAll(() => {
+  Chart.register(window['chartjs-plugin-gradient'])
   // Disable colors plugin for tests.
-  Chart.defaults.plugins.colors.enabled = false;
-});
+  Chart.defaults.plugins.colors.enabled = false
+})
 
-beforeEach(function() {
-  addMatchers();
-});
+beforeEach(() => {
+  addMatchers()
+})
 
-afterEach(function() {
-  releaseCharts();
-});
+afterEach(() => {
+  releaseCharts()
+})
 
-console.warn('Testing with chart.js v' + Chart.version);
+console.warn(`Testing with chart.js v${Chart.version}`)

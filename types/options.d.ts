@@ -19,7 +19,7 @@
  * @since 0.5.0
  */
 interface Gradient {
-    [key: number]: string
+  [key: number]: string
 }
 
 /**
@@ -28,11 +28,11 @@ interface Gradient {
  * @since 0.5.0
  */
 interface ColorSpecification {
-    axis: 'x' | 'y'
-    colors: Gradient
+  axis: 'x' | 'y'
+  colors: Gradient
 }
 
 export interface Options {
-    backgroundColor?: ColorSpecification
-    borderColor?: ColorSpecification
+  backgroundColor?: ColorSpecification
+  borderColor?: ColorSpecification
 }

@@ -1,40 +1,42 @@
 module.exports = {
   config: {
-    type: 'bar',
     data: {
+      datasets: [
+        {
+          data: [-65, -29, -80, -51, -55, -30, -40],
+          gradient: {
+            backgroundColor: {
+              axis: 'y',
+              colors: {
+                '-50': 'yellow',
+                '-80': 'green',
+                0: 'red',
+                50: 'yellow',
+                80: 'green',
+              },
+            },
+          },
+        },
+      ],
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      datasets: [{
-        data: [-65, -29, -80, -51, -55, -30, -40],
-        gradient: {
-          backgroundColor: {
-            axis: 'y',
-            colors: {
-              '-80': 'green',
-              '-50': 'yellow',
-              0: 'red',
-              50: 'yellow',
-              80: 'green',
-            }
-          }
-        }
-      }],
     },
     options: {
+      plugins: {
+        legend: false,
+      },
       scales: {
         x: {
           display: false,
         },
         y: {
           display: true,
-          max: -25
-        }
+          max: -25,
+        },
       },
-      plugins: {
-        legend: false
-      }
-    }
+    },
+    type: 'bar',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}

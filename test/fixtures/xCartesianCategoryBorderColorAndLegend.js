@@ -1,46 +1,48 @@
 module.exports = {
   config: {
-    type: 'bar',
     data: {
+      datasets: [
+        {
+          borderWidth: 4,
+          data: [65, 29, 80, 91, 55, 5, 40],
+          gradient: {
+            borderColor: {
+              axis: 'x',
+              colors: {
+                Apr: 'yellow',
+                Jan: 'red',
+                Jun: 'green',
+              },
+            },
+          },
+          label: 'legend',
+        },
+      ],
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      datasets: [{
-        label: 'legend',
-        data: [65, 29, 80, 91, 55, 5, 40],
-        borderWidth: 4,
-        gradient: {
-          borderColor: {
-            axis: 'x',
-            colors: {
-              Jan: 'red',
-              Apr: 'yellow',
-              Jun: 'green',
-            }
-          }
-        }
-      }],
     },
     options: {
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 24,
+            },
+          },
+        },
+      },
       scales: {
         x: {
           display: false,
         },
         y: {
+          beginAtZero: true,
           display: false,
-          beginAtZero: true
-        }
+        },
       },
-      plugins: {
-        legend: {
-          labels: {
-            font: {
-              size: 24
-            }
-          }
-        }
-      }
-    }
+    },
+    type: 'bar',
   },
   options: {
-    spriteText: true
-  }
-};
+    spriteText: true,
+  },
+}
