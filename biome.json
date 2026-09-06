@@ -2,11 +2,17 @@
   "extends": ["./node_modules/@kurkle/configs/biome.json"],
   "files": {
     "includes": [
+      "astro.config.mjs",
       "biome.json",
+      "docs/chart-runtime.js",
+      "docs/scripts/**/*.js",
+      "docs/scripts/**/*.cjs",
+      "docs/styles/**/*.css",
       "karma.conf.cjs",
       "package.json",
       "rollup.config.js",
       "src/**/*.js",
+      "src/**/*.ts",
       "test/index.js",
       "test/fixtures/**/*.js",
       "test/specs/**/*.js",
