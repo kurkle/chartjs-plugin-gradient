@@ -5,13 +5,10 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-plugin-gradient.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-plugin-gradient&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-plugin-gradient)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-plugin-gradient&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-plugin-gradient)
+[![documentation](https://img.shields.io/static/v1?message=Documentation&color=informational)](https://chartjs-plugin-gradient.pages.dev)
 ![GitHub](https://img.shields.io/github/license/kurkle/chartjs-plugin-gradient.svg)
 
-*Easy gradients for [Chart.js](https://www.chartjs.org)*
-
-This plugin requires Chart.js 3.0.0 or later. It should also work with v2, but there are no regressing tests to guarantee this.
-
-**NOTE** the plugin does not automatically register.
+[Chart.js](https://www.chartjs.org/) **v3+, v4+** plugin that renders a dataset's background and/or border color as a gradient following any axis (`x`, `y`, or `r`), instead of a single flat color — for anyone already charting with Chart.js who wants a value-driven color transition instead of a solid fill or stroke. It should also work with Chart.js v2, but there are no regression tests to guarantee this.
 
 ## Example
 
@@ -19,86 +16,81 @@ This plugin requires Chart.js 3.0.0 or later. It should also work with v2, but t
 
 ## Installation
 
-NPM:
-
 ```bash
-npm i --save-dev chartjs-plugin-gradient
+npm install chart.js chartjs-plugin-gradient
 ```
 
-CDN:
+Or via CDN:
 
 ```html
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
 ```
 
-## Usage
-
-### loading
-
-ESM
+## Quickstart
 
 ```js
+import { Chart, registerables } from 'chart.js';
 import gradient from 'chartjs-plugin-gradient';
-```
 
-CDN
+Chart.register(...registerables, gradient);
 
-```js
-const gradient = window['chartjs-plugin-gradient'];
-```
-
-### Registering
-
-All charts
-
-```js
-Chart.register(gradient);
-```
-
-Signle chart
-
-```js
-const chart = new Chart(ctx, {
-  // ...
-  plugins: {
-    gradient
-  }
-});
-```
-
-### Configuration
-
-The gradient colors are configured in the `gradient` key of dataset
-
-```js
-const chart = new Chart(ctx, {
+new Chart(document.getElementById('chart'), {
+  type: 'line',
   data: {
-    datasets: [{
-      // data
-      gradient: {
-        backgroundColor: {
-          axis: 'y',
-          colors: {
-            0: 'red',
-            50: 'yellow',
-            100: 'green'
-          }
+    labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    datasets: [
+      {
+        label: 'Gradient background',
+        data: [10, 20, 15, 40, 30, 25, 60, 45, 70, 50],
+        fill: true,
+        gradient: {
+          backgroundColor: {
+            axis: 'y',
+            colors: {
+              0: 'green',
+              50: 'blue',
+              100: 'red',
+            },
+          },
         },
-        borderColor: {
-          axis: 'x',
-          colors: {
-            0: 'black',
-            1: 'white',
-            2: 'black',
-            3: 'white'
-          }
-        }
-      }
-    }]
-  }
+      },
+    ],
+  },
 });
+```
+
+`Chart.register(gradient)` enables the plugin for every chart. To register it for a single chart instead, pass it in `plugins`:
+
+```js
+new Chart(ctx, {
+  // ...
+  plugins: [gradient],
+});
+```
+
+See more integration options (script tag, other module loaders) in the [documentation](https://chartjs-plugin-gradient.pages.dev/integration/).
+
+## Documentation
+
+You can find documentation for chartjs-plugin-gradient at [https://chartjs-plugin-gradient.pages.dev/](https://chartjs-plugin-gradient.pages.dev/). The full configuration reference lives there, not in this README — this file stays a quickstart.
+
+## Development
+
+You first need to install node dependencies (requires [Node.js](https://nodejs.org/)):
+
+```bash
+> npm install
+```
+
+The following commands will then be available from the repository root:
+
+```bash
+> npm run build        // build dist files
+> npm test              // run all tests
+> npm run lint          // perform code linting
 ```
 
 ## License
 
-`chartjs-plugin-gradient.js` is available under the [MIT license](https://github.com/kurkle/chartjs-plugin-gradient/blob/main/LICENSE).
+chartjs-plugin-gradient is available under the [MIT license](https://opensource.org/licenses/MIT).
