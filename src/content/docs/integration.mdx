@@ -1,0 +1,49 @@
+---
+title: Integration
+description: Use chartjs-plugin-gradient from ESM, CommonJS, or a browser bundle.
+---
+
+## ESM
+
+```js
+import { Chart } from 'chart.js'
+import gradient from 'chartjs-plugin-gradient'
+
+Chart.register(gradient)
+```
+
+## CommonJS
+
+```js
+const { Chart } = require('chart.js')
+const gradient = require('chartjs-plugin-gradient')
+
+Chart.register(gradient)
+```
+
+## Browser Bundle
+
+For script tag usage, load the browser bundle after Chart.js. The browser bundle exposes the plugin as a global —
+like every other entry point, it is never registered automatically.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
+<script>
+  const gradient = window['chartjs-plugin-gradient'];
+  Chart.register(gradient);
+</script>
+```
+
+The same bundle can be loaded from UNPKG.
+
+```html
+<script src="https://unpkg.com/chart.js"></script>
+<script src="https://unpkg.com/chartjs-plugin-gradient"></script>
+```
+
+If a CDN does not use the package metadata for its default file, reference the browser bundle directly.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient/dist/chartjs-plugin-gradient.min.js"></script>
+```

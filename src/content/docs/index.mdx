@@ -1,0 +1,27 @@
+---
+title: Getting Started
+description: Install chartjs-plugin-gradient and apply gradient colors to Chart.js datasets.
+---
+
+`chartjs-plugin-gradient` is a Chart.js plugin for easy gradient colors on chart datasets.
+
+This plugin requires Chart.js 3.0.0 or later. It should also work with v2, but there are no regression tests to guarantee this.
+
+## Installation
+
+```bash
+npm install chart.js chartjs-plugin-gradient
+```
+
+## Basic Usage
+
+The plugin does not register itself automatically. Register it once to enable it for every chart.
+
+```js
+import { Chart } from 'chart.js'
+import gradient from 'chartjs-plugin-gradient'
+
+Chart.register(gradient)
+```
+
+Continue with the editable [background gradient sample](/samples/background/).

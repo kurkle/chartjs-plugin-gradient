@@ -1,0 +1,78 @@
+---
+title: Usage
+description: Register chartjs-plugin-gradient and configure gradient colors per dataset.
+---
+
+## Registering
+
+The plugin does not automatically register. Register it either for all charts, or for a single chart instance.
+
+### All charts
+
+```js
+Chart.register(gradient)
+```
+
+### Single chart
+
+```js
+const chart = new Chart(ctx, {
+  // ...
+  plugins: [gradient]
+});
+```
+
+## Configuration
+
+Gradient colors are configured under the `gradient` key of a dataset, with a separate entry for `backgroundColor`
+and/or `borderColor`. Each entry selects the scale the gradient follows, and a map of scale values to colors.
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>axis</code></td>
+      <td>Axis (scale) the gradient follows: <code>x</code>, <code>y</code>, or <code>r</code>.</td>
+    </tr>
+    <tr>
+      <td><code>colors</code></td>
+      <td>Map of scale value to color, sorted and used as the gradient's color stops.</td>
+    </tr>
+  </tbody>
+</table>
+
+```js
+const chart = new Chart(ctx, {
+  data: {
+    datasets: [{
+      // data
+      gradient: {
+        backgroundColor: {
+          axis: 'y',
+          colors: {
+            0: 'red',
+            50: 'yellow',
+            100: 'green'
+          }
+        },
+        borderColor: {
+          axis: 'x',
+          colors: {
+            0: 'black',
+            1: 'white',
+            2: 'black',
+            3: 'white'
+          }
+        }
+      }
+    }]
+  }
+});
+```
+
+See the editable [background](/samples/background/), [border](/samples/border/), and [both](/samples/both/) samples.

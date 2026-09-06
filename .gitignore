@@ -5,5 +5,8 @@ dist/
 # Node.js
 node_modules/
 
+# Astro
+.astro/
+
 # Development
 .project
