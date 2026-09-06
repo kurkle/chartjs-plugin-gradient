@@ -73,7 +73,7 @@ export default defineConfig({
             },
             {
               label: 'chartjs-plugin-autocolors',
-              link: 'https://github.com/kurkle/chartjs-plugin-autocolors',
+              link: 'https://chartjs-plugin-autocolors.pages.dev/',
             },
           ],
           label: 'Ecosystem',
