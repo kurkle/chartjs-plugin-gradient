@@ -77,8 +77,9 @@
     "predocs:dev": "npm run docs:version",
     "prepack": "npm run build",
     "prepare": "git config core.hooksPath .githooks || true",
-    "test": "npm run test:fixture",
+    "test": "npm run test:fixture && npm run test:integration:min-bundle",
     "test:fixture": "vitest run --config vitest.browser.config.ts --coverage",
+    "test:integration:min-bundle": "vitest run --config vitest.integration.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.tooling.json",
     "typecheck:docs": "astro check"
   },
