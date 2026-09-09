@@ -1,9 +1,10 @@
+import { specsFromFixtures } from '../utils'
+
 describe('Gradient plugin', () => {
-  describe('auto', jasmine.fixtures('.'))
+  describe('auto', specsFromFixtures())
 
   it('should emit console warning when unknown axis type is used', () => {
-    const origWarn = console.warn
-    console.warn = jasmine.createSpy('warn')
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     acquireChart({
       data: {
@@ -27,11 +28,10 @@ describe('Gradient plugin', () => {
       type: 'bar',
     })
 
-    expect(console.warn).toHaveBeenCalledWith({
-      asymmetricMatch: (compareTo) =>
-        compareTo.startsWith("Scale not found for 's'-axis in datasets[0] of chart id"),
-    })
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringMatching(/^Scale not found for 's'-axis in datasets\[0\] of chart id/)
+    )
 
-    console.warn = origWarn
+    warn.mockRestore()
   })
 })
