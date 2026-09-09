@@ -8,15 +8,20 @@
       "docs/scripts/**/*.js",
       "docs/scripts/**/*.cjs",
       "docs/styles/**/*.css",
-      "karma.conf.cjs",
       "package.json",
       "rollup.config.js",
+      "scripts/**/*.mjs",
       "src/**/*.js",
       "src/**/*.ts",
-      "test/index.js",
       "test/fixtures/**/*.js",
+      "test/integration/**/*.js",
+      "test/setup.js",
       "test/specs/**/*.js",
-      "types/**/*.ts"
+      "test/utils/**/*.js",
+      "tsconfig.tooling.json",
+      "types/**/*.ts",
+      "vitest.browser.config.ts",
+      "vitest.integration.config.ts"
     ]
   }
 }
