@@ -2,6 +2,9 @@
 dist/
 /coverage/
 
+# Generated from types/*.d.ts by scripts/build-cjs-types.mjs
+types/*.d.cts
+
 # Node.js
 node_modules/
 
