@@ -32,15 +32,24 @@
     "vitest": "^5.0.0"
   },
   "exports": {
-    "import": "./dist/chartjs-plugin-gradient.esm.js",
-    "require": "./dist/chartjs-plugin-gradient.cjs",
-    "script": "./dist/chartjs-plugin-gradient.min.js",
-    "types": "./types/index.d.ts"
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/chartjs-plugin-gradient.esm.js"
+      },
+      "require": {
+        "types": "./types/index.d.cts",
+        "default": "./dist/chartjs-plugin-gradient.cjs"
+      },
+      "script": "./dist/chartjs-plugin-gradient.min.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist/*",
     "!dist/docs/**",
-    "types/*.d.ts"
+    "types/*.d.ts",
+    "types/*.d.cts"
   ],
   "homepage": "https://github.com/kurkle/chartjs-plugin-gradient#readme",
   "jsdelivr": "dist/chartjs-plugin-gradient.min.js",
@@ -64,7 +73,7 @@
     "url": "git+https://github.com/kurkle/chartjs-plugin-gradient.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && node scripts/build-cjs-types.mjs",
     "dev": "vitest --config vitest.browser.config.ts",
     "docs": "npm run build && astro build",
     "docs:dev": "npm run build && astro dev",
@@ -85,7 +94,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "types": "./types/index.d.ts",
+  "types": "./types/index.d.cts",
   "unpkg": "dist/chartjs-plugin-gradient.min.js",
   "version": "0.0.0-development"
 }
