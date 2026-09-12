@@ -24,8 +24,8 @@ const chart = new Chart(ctx, {
 
 ## Configuration
 
-Gradient colors are configured under the `gradient` key of a dataset, with one entry per dataset color option
-that should become a gradient: `backgroundColor`, `borderColor`, `hoverBackgroundColor`, `hoverBorderColor`,
+Gradient colors are configured under a `gradient` key, with one entry per dataset color option that should
+become a gradient: `backgroundColor`, `borderColor`, `hoverBackgroundColor`, `hoverBorderColor`,
 `pointBackgroundColor`, `pointBorderColor`, `pointHoverBackgroundColor`, `pointHoverBorderColor`, or any other
 color option the dataset accepts. Each entry selects the scale the gradient follows, and a map of scale values
 to colors.
@@ -78,6 +78,102 @@ const chart = new Chart(ctx, {
 });
 ```
 
+### Where to configure
+
+`gradient` is an ordinary Chart.js dataset option, so besides the dataset itself it can be set anywhere Chart.js
+resolves dataset options from, in this precedence order (first one that defines a given key wins for that key):
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Applies to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dataset.gradient</code></td>
+      <td>That dataset only.</td>
+    </tr>
+    <tr>
+      <td><code>options.datasets.&lt;type&gt;.gradient</code></td>
+      <td>Every dataset of that chart type, e.g. <code>options.datasets.line.gradient</code>.</td>
+    </tr>
+    <tr>
+      <td><code>options.gradient</code></td>
+      <td>Every dataset on the chart.</td>
+    </tr>
+    <tr>
+      <td><code>Chart.defaults.datasets.&lt;type&gt;.gradient</code></td>
+      <td>Every dataset of that type, on every chart.</td>
+    </tr>
+    <tr>
+      <td><code>Chart.defaults.gradient</code></td>
+      <td>Every dataset, on every chart.</td>
+    </tr>
+  </tbody>
+</table>
+
+The precedence applies per key, not to the whole `gradient` object: a chart-level `backgroundColor` and a
+dataset-level `borderColor` both apply to the same dataset. A dataset can opt out of a gradient configured at a
+less specific level by setting that key to `false` (or `null`):
+
+```js
+const chart = new Chart(ctx, {
+  data: {
+    datasets: [
+      {
+        // Uses the chart-level backgroundColor gradient below, plus its own borderColor gradient.
+        gradient: {
+          borderColor: { axis: 'y', colors: { 0: 'blue', 100: 'purple' } }
+        }
+      },
+      {
+        // Opts out of the chart-level backgroundColor gradient, keeps its own plain color.
+        backgroundColor: 'silver',
+        gradient: { backgroundColor: false }
+      }
+    ]
+  },
+  options: {
+    gradient: {
+      backgroundColor: { axis: 'y', colors: { 0: 'red', 100: 'green' } }
+    }
+  }
+});
+```
+
+```js
+// Every line dataset, on this chart only.
+const chart = new Chart(ctx, {
+  // ...
+  options: {
+    datasets: {
+      line: {
+        gradient: {
+          borderColor: { axis: 'y', colors: { 0: 'red', 100: 'green' } }
+        }
+      }
+    }
+  }
+});
+```
+
+```js
+// Every dataset, on every chart.
+Chart.defaults.gradient = {
+  backgroundColor: { axis: 'y', colors: { 0: 'red', 100: 'green' } }
+};
+
+// Every line dataset, on every chart.
+Chart.defaults.datasets.line.gradient = {
+  borderColor: { axis: 'y', colors: { 0: 'red', 100: 'green' } }
+};
+```
+
+See the editable [chart options](/samples/chart-level/) and [dataset type](/samples/dataset-type/) samples for
+the two chart-scoped levels.
+
 ### Hover and point colors
 
 Chart.js derives each hover color from its own base color: `hoverBackgroundColor` from `backgroundColor` and
@@ -117,5 +213,5 @@ const chart = new Chart(ctx, {
 });
 ```
 
-See the editable [background](/samples/background/), [border](/samples/border/), [both](/samples/both/), and
-[hover](/samples/hover/) samples.
+See the editable [background](/samples/background/), [border](/samples/border/), [both](/samples/both/),
+[hover](/samples/hover/), and [points](/samples/points/) samples.
