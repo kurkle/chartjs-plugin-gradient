@@ -23,16 +23,23 @@ interface Gradient {
 }
 
 /**
- * The color specification of either the x or the y axis further described within the colors property.
+ * The color specification of the x, y or r axis further described within the colors property.
  *
  * @since 0.5.0
  */
 interface ColorSpecification {
-  axis: 'x' | 'y'
+  axis: 'x' | 'y' | 'r'
   colors: Gradient
 }
 
 export interface Options {
   backgroundColor?: ColorSpecification
   borderColor?: ColorSpecification
+  hoverBackgroundColor?: ColorSpecification
+  hoverBorderColor?: ColorSpecification
+  pointBackgroundColor?: ColorSpecification
+  pointBorderColor?: ColorSpecification
+  pointHoverBackgroundColor?: ColorSpecification
+  pointHoverBorderColor?: ColorSpecification
+  [key: string]: ColorSpecification | undefined
 }
