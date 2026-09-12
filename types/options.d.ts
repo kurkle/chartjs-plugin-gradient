@@ -32,14 +32,20 @@ interface ColorSpecification {
   colors: Gradient
 }
 
+/**
+ * `false` or `null` opts a dataset out of a gradient configured at a less
+ * specific level (chart options or `Chart.defaults`) for the same key.
+ *
+ * @since 0.8.0
+ */
 export interface Options {
-  backgroundColor?: ColorSpecification
-  borderColor?: ColorSpecification
-  hoverBackgroundColor?: ColorSpecification
-  hoverBorderColor?: ColorSpecification
-  pointBackgroundColor?: ColorSpecification
-  pointBorderColor?: ColorSpecification
-  pointHoverBackgroundColor?: ColorSpecification
-  pointHoverBorderColor?: ColorSpecification
-  [key: string]: ColorSpecification | undefined
+  backgroundColor?: ColorSpecification | false | null
+  borderColor?: ColorSpecification | false | null
+  hoverBackgroundColor?: ColorSpecification | false | null
+  hoverBorderColor?: ColorSpecification | false | null
+  pointBackgroundColor?: ColorSpecification | false | null
+  pointBorderColor?: ColorSpecification | false | null
+  pointHoverBackgroundColor?: ColorSpecification | false | null
+  pointHoverBorderColor?: ColorSpecification | false | null
+  [key: string]: ColorSpecification | false | null | undefined
 }

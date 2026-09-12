@@ -17,6 +17,8 @@
       "test/integration/**/*.js",
       "test/setup.js",
       "test/specs/**/*.js",
+      "test/types/**/*.json",
+      "test/types/**/*.ts",
       "test/utils/**/*.js",
       "tsconfig.tooling.json",
       "types/**/*.ts",

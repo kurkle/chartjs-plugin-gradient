@@ -90,7 +90,7 @@
     "test:fixture": "vitest run --config vitest.browser.config.ts --coverage",
     "test:integration:min-bundle": "vitest run --config vitest.integration.config.ts",
     "test:pack": "kurkle-check-package",
-    "typecheck": "tsc --noEmit -p tsconfig.tooling.json",
+    "typecheck": "tsc --noEmit -p tsconfig.tooling.json && tsc --noEmit -p test/types/",
     "typecheck:docs": "astro check"
   },
   "sideEffects": false,
