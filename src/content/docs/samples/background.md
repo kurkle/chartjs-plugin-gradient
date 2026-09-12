@@ -1,35 +1,35 @@
 ---
 title: Background
-description: Gradient background fill along the y-axis.
+description: Gradient background fill, with a control to switch which axis it runs along.
 ---
 
 ```js chart-editor
 // <block:data:1>
-const data = {
-  datasets: [
-    {
-      label: 'Gradient background',
-      data: Utils.gen(),
-      fill: true,
-      gradient: {
-        backgroundColor: {
-          axis: 'y',
-          colors: {
-            0: 'green',
-            50: 'blue',
-            100: 'red',
-          },
-        },
-      },
-    },
-  ],
-}
+const values = Utils.gen()
 // </block:data>
 
 // <block:config:0>
 const config = {
   type: 'line',
-  data,
+  data: {
+    datasets: [
+      {
+        label: 'Gradient background',
+        data: values,
+        fill: true,
+        gradient: {
+          backgroundColor: {
+            axis: 'y',
+            colors: {
+              0: 'green',
+              50: 'blue',
+              100: 'red',
+            },
+          },
+        },
+      },
+    ],
+  },
   options: {
     scales: {
       x: {
@@ -42,5 +42,6 @@ const config = {
 
 module.exports = {
   config,
+  choices: [{ path: 'data.datasets.0.gradient.backgroundColor.axis', values: ['x', 'y'], control: 'radio' }],
 }
 ```

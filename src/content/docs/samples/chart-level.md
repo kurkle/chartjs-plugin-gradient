@@ -5,28 +5,30 @@ description: One gradient background configured once under options.gradient, app
 
 ```js chart-editor
 // <block:data:1>
-const data = {
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: Utils.gen(),
-    },
-    {
-      label: 'Dataset 2',
-      data: Utils.gen(),
-    },
-    {
-      label: 'Dataset 3',
-      data: Utils.gen(),
-    },
-  ],
-}
+const values1 = Utils.gen()
+const values2 = Utils.gen()
+const values3 = Utils.gen()
 // </block:data>
 
 // <block:config:0>
 const config = {
   type: 'line',
-  data,
+  data: {
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: values1,
+      },
+      {
+        label: 'Dataset 2',
+        data: values2,
+      },
+      {
+        label: 'Dataset 3',
+        data: values3,
+      },
+    ],
+  },
   options: {
     elements: {
       line: {

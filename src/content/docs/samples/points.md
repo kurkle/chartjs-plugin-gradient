@@ -5,49 +5,49 @@ description: Gradient border, point background and point hover background colors
 
 ```js chart-editor
 // <block:data:1>
-const data = {
-  datasets: [
-    {
-      label: 'Gradient points',
-      data: Utils.gen(),
-      borderWidth: 2,
-      pointRadius: 10,
-      pointBorderColor: 'white',
-      gradient: {
-        borderColor: {
-          axis: 'y',
-          colors: {
-            0: 'red',
-            50: 'yellow',
-            100: 'green',
-          },
-        },
-        pointBackgroundColor: {
-          axis: 'y',
-          colors: {
-            0: 'red',
-            50: 'yellow',
-            100: 'green',
-          },
-        },
-        pointHoverBackgroundColor: {
-          axis: 'y',
-          colors: {
-            0: 'red',
-            50: 'yellow',
-            100: 'green',
-          },
-        },
-      },
-    },
-  ],
-}
+const values = Utils.gen()
 // </block:data>
 
 // <block:config:0>
 const config = {
   type: 'line',
-  data,
+  data: {
+    datasets: [
+      {
+        label: 'Gradient points',
+        data: values,
+        borderWidth: 2,
+        pointRadius: 10,
+        pointBorderColor: 'white',
+        gradient: {
+          borderColor: {
+            axis: 'y',
+            colors: {
+              0: 'red',
+              50: 'yellow',
+              100: 'green',
+            },
+          },
+          pointBackgroundColor: {
+            axis: 'y',
+            colors: {
+              0: 'red',
+              50: 'yellow',
+              100: 'green',
+            },
+          },
+          pointHoverBackgroundColor: {
+            axis: 'y',
+            colors: {
+              0: 'red',
+              50: 'yellow',
+              100: 'green',
+            },
+          },
+        },
+      },
+    ],
+  },
   options: {
     scales: {
       x: {
