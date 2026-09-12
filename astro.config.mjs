@@ -49,6 +49,7 @@ export default defineConfig({
             { label: 'Background', link: '/samples/background/' },
             { label: 'Border', link: '/samples/border/' },
             { label: 'Both', link: '/samples/both/' },
+            { label: 'Hover', link: '/samples/hover/' },
           ],
           label: 'Samples',
         },

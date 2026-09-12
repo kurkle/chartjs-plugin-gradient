@@ -24,8 +24,11 @@ const chart = new Chart(ctx, {
 
 ## Configuration
 
-Gradient colors are configured under the `gradient` key of a dataset, with a separate entry for `backgroundColor`
-and/or `borderColor`. Each entry selects the scale the gradient follows, and a map of scale values to colors.
+Gradient colors are configured under the `gradient` key of a dataset, with one entry per dataset color option
+that should become a gradient: `backgroundColor`, `borderColor`, `hoverBackgroundColor`, `hoverBorderColor`,
+`pointBackgroundColor`, `pointBorderColor`, `pointHoverBackgroundColor`, `pointHoverBorderColor`, or any other
+color option the dataset accepts. Each entry selects the scale the gradient follows, and a map of scale values
+to colors.
 
 <table>
   <thead>
@@ -75,4 +78,44 @@ const chart = new Chart(ctx, {
 });
 ```
 
-See the editable [background](/samples/background/), [border](/samples/border/), and [both](/samples/both/) samples.
+### Hover and point colors
+
+Chart.js derives each hover color from its own base color: `hoverBackgroundColor` from `backgroundColor` and
+`hoverBorderColor` from `borderColor`, and a gradient is passed through unchanged. So a `backgroundColor`
+gradient already shows on hover, and so does a `borderColor` gradient on the hovered border. What does not
+happen is crossing over: a hovered point's fill is derived from the dataset's `backgroundColor`, never from
+`borderColor`. A line dataset with only a `borderColor` gradient therefore hovers its points with a fill derived
+from whatever `backgroundColor` resolves to, which is Chart.js's default `rgba(0, 0, 0, 0.1)` when the dataset
+sets none. Give the dataset a `hoverBackgroundColor` gradient (or `pointHoverBackgroundColor`, for
+line/radar/scatter points) to make the fill follow the same gradient:
+
+```js
+const chart = new Chart(ctx, {
+  data: {
+    datasets: [{
+      // data
+      gradient: {
+        borderColor: {
+          axis: 'y',
+          colors: {
+            0: 'red',
+            50: 'yellow',
+            100: 'green'
+          }
+        },
+        hoverBackgroundColor: {
+          axis: 'y',
+          colors: {
+            0: 'red',
+            50: 'yellow',
+            100: 'green'
+          }
+        }
+      }
+    }]
+  }
+});
+```
+
+See the editable [background](/samples/background/), [border](/samples/border/), [both](/samples/both/), and
+[hover](/samples/hover/) samples.
