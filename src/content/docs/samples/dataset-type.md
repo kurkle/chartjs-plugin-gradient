@@ -5,31 +5,33 @@ description: A gradient border color configured once under options.datasets.line
 
 ```js chart-editor
 // <block:data:1>
-const data = {
-  datasets: [
-    {
-      label: 'Line A',
-      data: Utils.gen(),
-      type: 'line',
-    },
-    {
-      label: 'Line B',
-      data: Utils.gen(),
-      type: 'line',
-    },
-    {
-      label: 'Bar',
-      data: Utils.gen(),
-      type: 'bar',
-    },
-  ],
-}
+const lineA = Utils.gen()
+const lineB = Utils.gen()
+const bar = Utils.gen()
 // </block:data>
 
 // <block:config:0>
 const config = {
   type: 'line',
-  data,
+  data: {
+    datasets: [
+      {
+        label: 'Line A',
+        data: lineA,
+        type: 'line',
+      },
+      {
+        label: 'Line B',
+        data: lineB,
+        type: 'line',
+      },
+      {
+        label: 'Bar',
+        data: bar,
+        type: 'bar',
+      },
+    ],
+  },
   options: {
     datasets: {
       line: {
