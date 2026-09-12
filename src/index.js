@@ -1,3 +1,4 @@
+import { defaults } from 'chart.js'
 import { color } from 'chart.js/helpers'
 
 import { applyColors, areaIsValid, createGradient, getPixelStop, isChartV3 } from './helpers'
@@ -50,17 +51,47 @@ function getStateOptions(state, meta, key, datasetIndex) {
   return stateOptions
 }
 
-function updateDataset(chart, state, gradient, dataset, datasetIndex) {
+/**
+ * The keys to resolve come from the raw configuration objects (dataset,
+ * `options.datasets.<type>`, `options.gradient`, and the two default
+ * levels), not from `meta.controller.options.gradient`: Chart.js's scriptable
+ * option resolver only lists the keys present on the most specific source
+ * that defines the object at all, even though reading a key that is missing
+ * there still falls through to a less specific level. Iterating the resolved
+ * object would silently skip chart-level-only keys.
+ */
+function gradientKeys(chart, meta, dataset) {
+  const type = meta.type
+  const sources = [
+    dataset.gradient,
+    chart.options.datasets?.[type]?.gradient,
+    chart.options.gradient,
+    defaults.datasets?.[type]?.gradient,
+    defaults.gradient,
+  ]
+  const keys = new Set()
+  for (const source of sources) {
+    if (source) {
+      for (const key of Object.keys(source)) {
+        keys.add(key)
+      }
+    }
+  }
+  return keys
+}
+
+function updateDataset(chart, state, dataset, datasetIndex) {
   const ctx = chart.ctx
   const meta = chart.getDatasetMeta(datasetIndex)
   if (meta.hidden) {
     return
   }
-  for (const [key, options] of Object.entries(gradient)) {
-    const { axis, colors } = options
-    if (!colors) {
+  for (const key of gradientKeys(chart, meta, dataset)) {
+    const options = meta.controller.options.gradient?.[key]
+    if (!options?.colors) {
       continue
     }
+    const { axis, colors } = options
     const scale = getScale(meta, axis)
     if (!scale) {
       console.warn(
@@ -105,11 +136,7 @@ export default {
     const state = chartStates.get(chart)
     const datasets = chart.data.datasets
     for (let i = 0; i < datasets.length; i++) {
-      const dataset = datasets[i]
-      const gradient = dataset.gradient
-      if (gradient) {
-        updateDataset(chart, state, gradient, dataset, i)
-      }
+      updateDataset(chart, state, datasets[i], i)
     }
   },
 
