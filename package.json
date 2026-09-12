@@ -73,7 +73,7 @@
     "url": "git+https://github.com/kurkle/chartjs-plugin-gradient.git"
   },
   "scripts": {
-    "build": "rollup -c && node scripts/build-cjs-types.mjs",
+    "build": "rollup -c && kurkle-build-cjs-types --dir types",
     "dev": "vitest --config vitest.browser.config.ts",
     "docs": "npm run build && astro build",
     "docs:dev": "npm run build && astro dev",
