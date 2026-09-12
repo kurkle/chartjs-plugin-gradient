@@ -1,6 +1,6 @@
 ---
 title: Background
-description: Gradient background fill along the y-axis.
+description: Gradient background fill, with a control to switch which axis it runs along.
 ---
 
 ```js chart-editor
