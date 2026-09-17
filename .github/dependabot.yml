@@ -5,12 +5,24 @@ updates:
     schedule:
       interval: "weekly"
     groups:
+      # Reviewing majors one at a time keeps a single blocked major
+      # (e.g. a TypeScript major) from stalling every patch grouped beside it.
       dev-dependencies:
         dependency-type: "development"
+        update-types: ["minor", "patch"]
+    ignore:
+      # @astrojs/check requires typescript ^5 || ^6, so TS 7 breaks npm ci
+      # with ERESOLVE and stalls the whole dev-dependencies group.
+      # Remove this once @astrojs/check supports TypeScript 7.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
     groups:
+      # Reviewing majors one at a time keeps a single blocked major from
+      # stalling every patch grouped beside it.
       actions:
         patterns: ["*"]
+        update-types: ["minor", "patch"]
