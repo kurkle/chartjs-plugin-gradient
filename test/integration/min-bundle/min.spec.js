@@ -22,6 +22,7 @@
  */
 import * as chartjs from 'chart.js'
 import * as helpers from 'chart.js/helpers'
+import { readImageData, spritingOff, spritingOn, toEqualImageData } from 'chartjs-test-utils'
 // Registers the time-scale adapter as a Chart.js side effect, as test/setup.js
 // does for the fixture suite. This suite runs without that setup file, so it
 // is imported directly.
@@ -34,13 +35,12 @@ import xCartesianTimeConfig from '../../fixtures/xCartesianTime.js'
 import xCartesianTimePng from '../../fixtures/xCartesianTime.png?url'
 import yCartesianLinearAndLegendConfig from '../../fixtures/yCartesianLinearAndLegend.js'
 import yCartesianLinearAndLegendPng from '../../fixtures/yCartesianLinearAndLegend.png?url'
-import { readImageData } from '../../utils/canvas.js'
-import { imageMatchers } from '../../utils/matchers.js'
-import { spritingOff, spritingOn } from '../../utils/sprite.js'
 
 const ChartJS = chartjs.Chart
 
-expect.extend(imageMatchers)
+// Only the matcher: this suite runs without the setup file, so none of
+// `setup()`'s other side effects (chart release, wrapper CSS) apply here.
+expect.extend({ toEqualImageData })
 
 function loadScript(url) {
   return new Promise((resolve, reject) => {
@@ -140,8 +140,8 @@ describe('min-bundle', () => {
     const json = fixture
     const config = json.config
     config.options = config.options || {}
-    // Same normalisation test/utils/fixtures.js applies: none of these
-    // fixture names contain 'plugin', so instance plugin options are
+    // Same normalisation as createFixtures from chartjs-test-utils: none of
+    // these fixture names contain 'plugin', so instance plugin options are
     // disabled by default.
     if (!name.includes('plugin') && config.plugins === undefined) {
       config.options.plugins = config.options.plugins || false
