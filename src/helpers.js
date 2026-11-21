@@ -6,7 +6,7 @@ export const isChartV3 = Chart.version
 const parse = isChartV3 ? (scale, value) => scale.parse(value) : (_scale, value) => value
 
 function scaleValue(scale, value) {
-  const normValue = isNumber(value) ? parseFloat(value) : parse(scale, value)
+  const normValue = isNumber(value) ? Number.parseFloat(value) : parse(scale, value)
   return scale.getPixelForValue(normValue)
 }
 
