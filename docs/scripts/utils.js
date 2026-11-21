@@ -7,5 +7,5 @@ const rand = () => Math.random() * 100
 // uses to show off gradient colors against, independent of any specific
 // data values.
 export function gen(count = 10) {
-  return [...Array(count)].map((_, i) => ({ x: i, y: rand() }))
+  return Array.from({ length: count }, (_, i) => ({ x: i, y: rand() }))
 }
